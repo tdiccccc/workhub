@@ -13,7 +13,7 @@
 
 ## 実装スコープ
 
-### v1.0実装対象
+### MVP実装対象
 
 - 認証
 - Project
@@ -39,6 +39,12 @@
 
 - Spring Security
 - Session認証
+
+Nuxt4からJSON形式でログインするため、Spring Securityの標準フォームログインではなく、API用のログインエンドポイントを用意する。
+
+MVPでは学習を優先し、CSRFは一旦無効化する。
+
+本番構成ではCSRF Cookie方式、SameSite属性、CORS設定を再検討する。
 
 ### Phase2
 
@@ -135,6 +141,8 @@ springdoc-openapi
 
 Session認証を前提とする。
 
+Nuxt4からJSON形式でログインするため、`POST /api/login` はSpring Security標準のフォームログインではなく、API用のカスタムログインエンドポイントとして実装する。
+
 ### POST /api/login
 
 ログイン
@@ -181,6 +189,10 @@ Session認証を前提とする。
 ---
 
 ## Project API
+
+JSONでは `active` を使用する。
+
+Java側のフィールド名は `private boolean active;` を基本とし、`isActive` はGetter名やJSON変換で混乱しやすいため避ける。
 
 ### GET /api/projects
 
@@ -376,6 +388,10 @@ WorkLogはTask配下のリソースとして扱う。
 
 ただし、`GET /api/work-logs` は「自分の工数一覧」として残す。
 
+MVPではURLを短く保つため、作業ログAPIは `/api/tasks/{taskId}/work-logs` を採用する。
+
+より厳密にProject配下まで表現する場合は、将来的に `/api/projects/{projectId}/tasks/{taskId}/work-logs` への変更を検討する。
+
 ### GET /api/work-logs
 
 自分の工数一覧取得(認証必須)
@@ -484,10 +500,11 @@ WorkLogはTask配下のリソースとして扱う。
 
 v1では不要。
 
-Spring Security導入前に管理画面まで実装すると学習範囲が広がりすぎるため、初期ユーザーは以下で作成する。
+Spring Security導入前に管理画面まで実装すると学習範囲が広がりすぎるため、初期ユーザーはアプリケーション画面からではなくDB初期データとして作成する。
 
-- Seeder
-- Flyway
+初期データはFlywayのmigration SQLで投入する。
+
+開発初期の簡易構成では `data.sql` も候補とするが、基本はFlywayを優先する。
 
 実装タイミングはSpring Security以降とする。
 
@@ -525,7 +542,7 @@ v2以降で追加する。
 
 ### Category API
 
-v1.0のMVPからは外す。
+MVPからは外す。
 
 Task Categoryはv0.4で追加する。
 
@@ -548,7 +565,7 @@ GitHub Milestone単位で実装する。
 | v0.7 | Report |
 | v0.8 | Slack連携 |
 | v0.9 | Backlog連携 |
-| v1.0 | Docker、AWS、CI/CD、リリース |
+| v1.0 | 初回リリース(Docker、AWS、CI/CDを含む) |
 
 ---
 
