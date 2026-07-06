@@ -1,0 +1,65 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    container_name: workhub-app-dev
+    volumes:
+      - ..:/workspace
+    working_dir: /workspace
+    ports:
+      - "8200:8200" # Spring Boot
+      - "3000:3000" # Nuxt4
+    depends_on:
+      db:
+        condition: service_healthy
+    tty: true
+    stdin_open: true
+    command: sleep infinity
+    networks:
+      - workhub
+
+  db:
+    image: mysql:8.4
+    container_name: workhub-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: workhub
+      MYSQL_USER: workhub
+      MYSQL_PASSWORD: password
+      TZ: Asia/Tokyo
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - workhub_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - workhub
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: workhub-phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      PHP_MEMORY_LIMIT: 512M
+    ports:
+      - "8205:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - workhub
+
+networks:
+  workhub:
+    driver: bridge
+
+volumes:
+  workhub_db_data:

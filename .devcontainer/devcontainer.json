@@ -1,0 +1,37 @@
+{
+  "name": "workhub-container",
+  "dockerComposeFile": [
+    "../docker/compose.yml"
+  ],
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  "forwardPorts": [
+    8200,
+    3000,
+    3307,
+    8205
+  ],
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "java.compile.nullAnalysis.mode": "automatic"
+      },
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "vscjava.vscode-gradle",
+        "Vue.volar",
+        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bierner.markdown-mermaid",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
