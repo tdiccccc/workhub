@@ -1,0 +1,23 @@
+server:
+  port: 8200
+
+spring:
+  application:
+    name: workhub
+
+  datasource:
+    url: jdbc:mysql://db:3306/workhub?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo
+    username: workhub
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
