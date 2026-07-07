@@ -24,13 +24,18 @@
       "extensions": [
         "vscjava.vscode-java-pack",
         "vmware.vscode-spring-boot",
+        "vscjava.vscode-spring-initializr",
+        "vscjava.vscode-spring-boot-dashboard",
         "vscjava.vscode-gradle",
         "Vue.volar",
         "bradlc.vscode-tailwindcss",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "bierner.markdown-mermaid",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "editorconfig.editorconfig",
+        "usernamehw.errorlens"
       ]
     }
   }
