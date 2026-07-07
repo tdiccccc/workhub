@@ -4,6 +4,7 @@ import com.taguhyung.workhub.application.command.project.CreateProjectCommand;
 import com.taguhyung.workhub.domain.model.Project;
 import com.taguhyung.workhub.presentation.request.project.CreateProjectRequest;
 import com.taguhyung.workhub.presentation.response.project.ProjectResponse;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,5 +29,11 @@ public class ProjectPresentationMapper {
                 project.getStartedAt(),
                 project.getEndedAt(),
                 project.getIsActive());
+    }
+
+    public List<ProjectResponse> toResponseList(List<Project> projects) {
+        return projects.stream()
+                .map(this::toResponse)
+                .toList();
     }
 }
