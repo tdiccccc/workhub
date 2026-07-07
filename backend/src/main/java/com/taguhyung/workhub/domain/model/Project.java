@@ -60,6 +60,34 @@ public class Project {
         return project;
     }
 
+    public static Project reconstruct(
+            Long id,
+            String name,
+            BigDecimal amount,
+            String description,
+            LocalDateTime startedAt,
+            LocalDateTime endedAt,
+            Boolean isActive,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            LocalDateTime deletedAt) {
+
+        Project project = new Project();
+
+        project.id = id;
+        project.name = name;
+        project.amount = amount;
+        project.description = description;
+        project.startedAt = startedAt;
+        project.endedAt = endedAt;
+        project.isActive = isActive;
+        project.createdAt = createdAt;
+        project.updatedAt = updatedAt;
+        project.deletedAt = deletedAt;
+
+        return project;
+    }
+
     public Long getId() {
         return id;
     }
