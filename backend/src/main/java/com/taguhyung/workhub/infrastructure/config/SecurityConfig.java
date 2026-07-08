@@ -2,6 +2,7 @@ package com.taguhyung.workhub.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -13,7 +14,10 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/projects/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/projects", "/api/projects/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/projects").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/projects/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/projects/**").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }

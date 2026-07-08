@@ -1,5 +1,6 @@
 package com.taguhyung.workhub.application.usecase.project;
 
+import com.taguhyung.workhub.domain.exception.ProjectNotFoundException;
 import com.taguhyung.workhub.domain.model.Project;
 import com.taguhyung.workhub.domain.repository.ProjectRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,6 @@ public class GetProjectUseCase {
     @Transactional(readOnly = true)
     public Project execute(Long id) {
         return projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("プロジェクトが見つかりません: " + id));
+                .orElseThrow(() -> new ProjectNotFoundException(id));
     }
 }

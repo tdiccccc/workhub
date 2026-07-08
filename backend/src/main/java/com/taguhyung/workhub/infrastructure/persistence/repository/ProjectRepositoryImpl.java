@@ -24,7 +24,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public List<Project> findAll() {
-        return projectJpaRepository.findAll()
+        return projectJpaRepository.findByDeletedAtIsNull()
                 .stream()
                 .map(mapper::toDomain)
                 .toList();
@@ -32,7 +32,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public Optional<Project> findById(Long id) {
-        return projectJpaRepository.findById(id)
+        return projectJpaRepository.findByIdAndDeletedAtIsNull(id)
                 .map(mapper::toDomain);
     }
 
