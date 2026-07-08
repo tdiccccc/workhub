@@ -60,6 +60,40 @@ public class Project {
         return project;
     }
 
+    public void update(
+            String name,
+            BigDecimal amount,
+            String description,
+            LocalDateTime startedAt,
+            LocalDateTime endedAt,
+            Boolean isActive) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("プロジェクト名は必須です");
+        }
+
+        if (amount == null) {
+            throw new IllegalArgumentException("受注金額は必須です");
+        }
+
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("案件概要は必須です");
+        }
+
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("受注金額は0以上で入力してください");
+        }
+
+        if (startedAt != null && endedAt != null && endedAt.isBefore(startedAt)) {
+            throw new IllegalArgumentException("終了日は開始日以降で入力してください");
+        }
+        this.name = name;
+        this.amount = amount;
+        this.description = description;
+        this.startedAt = startedAt;
+        this.endedAt = endedAt;
+        this.isActive = isActive != null ? isActive : false;
+    }
+
     public static Project reconstruct(
             Long id,
             String name,
