@@ -94,6 +94,15 @@ public class Project {
         this.isActive = isActive != null ? isActive : false;
     }
 
+    public void delete(LocalDateTime deletedAt) {
+        if (deletedAt == null) {
+            throw new IllegalArgumentException("削除日時は必須です");
+        }
+
+        this.deletedAt = deletedAt;
+        this.isActive = false;
+    }
+
     public static Project reconstruct(
             Long id,
             String name,
