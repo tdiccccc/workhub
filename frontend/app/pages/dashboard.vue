@@ -37,7 +37,9 @@ const { data, pending, error } =
 
       <ul v-else>
         <li v-for="project in data?.data ?? []" :key="project.id">
-          <strong>{{ project.name }}</strong>
+          <NuxtLink :to="`/projects/${project.id}`">
+            <strong>{{ project.name }}</strong>
+          </NuxtLink>
           <span> / {{ project.amount }}円</span>
           <p>{{ project.description }}</p>
         </li>
