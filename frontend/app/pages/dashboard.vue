@@ -23,7 +23,7 @@ const { data, pending, error } =
   <div>
     <h1>ダッシュボード</h1>
     <p>ログイン成功</p>
-
+    <NuxtLink to="/projects/create"> プロジェクト作成 </NuxtLink>
     <section>
       <h2>プロジェクト一覧</h2>
 
