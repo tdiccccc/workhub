@@ -72,6 +72,20 @@ const handleUpdate = async () => {
   await refresh();
   isEditing.value = false;
 };
+
+const handleDelete = async () => {
+  const confirmed = window.confirm("このプロジェクトを削除しますか？");
+
+  if (!confirmed) {
+    return;
+  }
+
+  await $fetch(`/api/projects/${projectId}`, {
+    method: "DELETE",
+  });
+
+  await navigateTo("/dashboard");
+};
 </script>
 
 <template>
@@ -143,7 +157,7 @@ const handleUpdate = async () => {
       <div v-else>
         <button type="button" @click="handleUpdate">更新</button>
 
-        <button type="button">削除</button>
+        <button type="button" @click="handleDelete">削除</button>
 
         <button type="button" @click="cancelEditing">キャンセル</button>
       </div>
