@@ -1,7 +1,6 @@
 <script setup lang="ts">
+import LoginForm from "~/components/features/auth/LoginForm.vue";
 import { loginSchema } from "~/schemas/auth";
-import type { ApiResponse } from "~/types/api";
-import type { CurrentUser } from "~/types/auth";
 
 const email = ref("");
 const password = ref("");
@@ -18,7 +17,7 @@ const handleSubmit = async () => {
     password: password.value,
   });
 
-  //.  result.succes:成功したかどうか
+  // result.success: 成功したかどうか
   if (!result.success) {
     errorMessage.value =
       result.error.issues[0]?.message ?? "入力内容を確認してください";
@@ -39,22 +38,10 @@ const handleSubmit = async () => {
       {{ errorMessage }}
     </p>
 
-    <form @submit.prevent="handleSubmit">
-      <input
-        v-model="email"
-        type="email"
-        name="email"
-        placeholder="メールアドレスを入力してください"
-      />
-
-      <input
-        v-model="password"
-        type="password"
-        name="password"
-        placeholder="パスワードを入力してください"
-      />
-
-      <button type="submit">ログイン</button>
-    </form>
+    <LoginForm
+      v-model:email="email"
+      v-model:password="password"
+      @submit="handleSubmit"
+    />
   </div>
 </template>
