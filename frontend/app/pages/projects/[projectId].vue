@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { projectSchema } from "~/schemas/project";
 import type { Project } from "~/types/project";
-import { deleteProject } from "~/services/project";
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
   middleware: "auth",
 });
 
-const { fetchProjectDetail, updateProjectDetail } = useProjects();
+const { fetchProjectDetail, updateProjectDetail, deleteProjectDetail } =
+  useProjects();
 const isEditing = ref(false);
 const errorMessage = ref("");
 
@@ -80,7 +80,7 @@ const handleDelete = async () => {
     return;
   }
 
-  await deleteProject(projectId);
+  await deleteProjectDetail(projectId);
 
   await navigateTo("/dashboard");
 };

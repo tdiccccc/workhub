@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { projectSchema } from "~/schemas/project";
-import { createProject } from "~/services/project";
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
   middleware: "auth",
 });
 
+const { createProjectDetail } = useProjects();
 const name = ref("");
 const amount = ref(0);
 const description = ref("");
@@ -35,7 +35,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    await createProject(result.data);
+    await createProjectDetail(result.data);
     await navigateTo("/dashboard");
   } catch (error) {
     errorMessage.value = "プロジェクトの作成に失敗しました。";
