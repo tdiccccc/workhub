@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { fetchProjects } from "~/services/project";
-
 definePageMeta({
   middleware: "auth",
 });
 
 const authStore = useAuthStore();
+const { fetchProjectList } = useProjects();
 
 const handleLogout = async () => {
   await authStore.logout();
 };
 
-const { data, pending, error } = await useAsyncData("projects", fetchProjects);
+const { data, pending, error } = await fetchProjectList();
 </script>
 
 <template>
