@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { projectSchema } from "~/schemas/project";
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
@@ -7,24 +6,28 @@ definePageMeta({
 });
 
 const { createProject } = useProjects();
-const { name, amount, description, startedAt, endedAt, isActive, toPayload } =
-  useProjectForm();
+const {
+  name,
+  amount,
+  description,
+  startedAt,
+  endedAt,
+  isActive,
+  errors,
+  validate,
+} = useProjectForm();
 
 const errorMessage = ref("");
 
 const handleSubmit = async () => {
-  errorMessage.value = "";
+  const payload = validate();
 
-  const result = projectSchema.safeParse(toPayload());
-
-  if (!result.success) {
-    errorMessage.value =
-      result.error.issues[0]?.message ?? "入力内容を確認してください";
+  if (!payload) {
     return;
   }
 
   try {
-    await createProject(result.data);
+    await createProject(payload);
     await navigateTo("/dashboard");
   } catch (error) {
     errorMessage.value = "プロジェクトの作成に失敗しました。";
@@ -48,6 +51,7 @@ const handleSubmit = async () => {
         v-model:startedAt="startedAt"
         v-model:endedAt="endedAt"
         v-model:isActive="isActive"
+        :errors="errors"
       />
       <button type="submit">作成</button>
     </form>

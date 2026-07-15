@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { projectSchema } from "~/schemas/project";
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
@@ -17,8 +16,9 @@ const {
   startedAt,
   endedAt,
   isActive,
+  errors,
+  validate,
   setForm,
-  toPayload,
 } = useProjectForm();
 
 const route = useRoute();
@@ -43,17 +43,13 @@ const cancelEditing = () => {
 };
 
 const handleUpdate = async () => {
-  errorMessage.value = "";
+  const payload = validate();
 
-  const result = projectSchema.safeParse(toPayload());
-
-  if (!result.success) {
-    errorMessage.value =
-      result.error.issues[0]?.message ?? "入力内容を確認してください";
+  if (!payload) {
     return;
   }
 
-  await updateProject(projectId, result.data);
+  await updateProject(projectId, payload);
 
   await refresh();
   isEditing.value = false;
@@ -95,6 +91,7 @@ const handleDelete = async () => {
         v-model:endedAt="endedAt"
         v-model:isActive="isActive"
         :readonly="!isEditing"
+        :errors="errors"
       />
 
       <div v-if="!isEditing">

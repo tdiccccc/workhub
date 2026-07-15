@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   readonly?: boolean;
+  errors?: Record<string, string>;
 }>();
 
 const name = defineModel<string>("name", { required: true });
@@ -14,6 +15,7 @@ const isActive = defineModel<boolean>("isActive", { required: true });
   <div>
     <label for="name">プロジェクト名</label>
     <input id="name" v-model="name" type="text" :readonly="readonly" />
+    <p v-if="errors?.name">{{ errors.name }}</p>
   </div>
 
   <div>
@@ -24,11 +26,13 @@ const isActive = defineModel<boolean>("isActive", { required: true });
       type="number"
       :readonly="readonly"
     />
+    <p v-if="errors?.amount">{{ errors.amount }}</p>
   </div>
 
   <div>
     <label for="description">概要</label>
     <textarea id="description" v-model="description" :readonly="readonly" />
+    <p v-if="errors?.description">{{ errors.description }}</p>
   </div>
 
   <div>
@@ -39,6 +43,7 @@ const isActive = defineModel<boolean>("isActive", { required: true });
       type="datetime-local"
       :readonly="readonly"
     />
+    <p v-if="errors?.startedAt">{{ errors.startedAt }}</p>
   </div>
 
   <div>
@@ -49,6 +54,7 @@ const isActive = defineModel<boolean>("isActive", { required: true });
       type="datetime-local"
       :readonly="readonly"
     />
+    <p v-if="errors?.endedAt">{{ errors.endedAt }}</p>
   </div>
 
   <div>
@@ -56,5 +62,6 @@ const isActive = defineModel<boolean>("isActive", { required: true });
       <input v-model="isActive" type="checkbox" :disabled="readonly" />
       有効
     </label>
+    <p v-if="errors?.isActive">{{ errors.isActive }}</p>
   </div>
 </template>
