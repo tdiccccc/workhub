@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { projectSchema } from "~/schemas/project";
 import type { Project } from "~/types/project";
-import { deleteProject, updateProject } from "~/services/project";
+import { deleteProject } from "~/services/project";
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
   middleware: "auth",
 });
 
-const { fetchProjectDetail } = useProjects();
+const { fetchProjectDetail, updateProjectDetail } = useProjects();
 const isEditing = ref(false);
 const errorMessage = ref("");
 
@@ -67,7 +67,7 @@ const handleUpdate = async () => {
     return;
   }
 
-  await updateProject(projectId, result.data);
+  await updateProjectDetail(projectId, result.data);
 
   await refresh();
   isEditing.value = false;

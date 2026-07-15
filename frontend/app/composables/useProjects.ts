@@ -1,4 +1,9 @@
-import { fetchProject, fetchProjects } from "~/services/project";
+import {
+  fetchProject,
+  fetchProjects,
+  updateProject,
+} from "~/services/project";
+import type { ProjectForm } from "~/schemas/project";
 
 export const useProjects = () => {
   const fetchProjectList = () => {
@@ -10,8 +15,16 @@ export const useProjects = () => {
     return useAsyncData(`project-${projectId}`, () => fetchProject(projectId));
   };
 
+  const updateProjectDetail = async (
+    projectId: string | string[],
+    form: ProjectForm,
+  ) => {
+    return await updateProject(projectId, form);
+  }
+
   return {
     fetchProjectList,
     fetchProjectDetail,
+    updateProjectDetail,
   };
 };
