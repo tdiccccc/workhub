@@ -7,26 +7,15 @@ definePageMeta({
 });
 
 const { createProject } = useProjects();
-const name = ref("");
-const amount = ref(0);
-const description = ref("");
-const startedAt = ref("");
-const endedAt = ref("");
-const isActive = ref(false);
+const { name, amount, description, startedAt, endedAt, isActive, toPayload } =
+  useProjectForm();
 
 const errorMessage = ref("");
 
 const handleSubmit = async () => {
   errorMessage.value = "";
 
-  const result = projectSchema.safeParse({
-    name: name.value,
-    amount: amount.value,
-    description: description.value,
-    startedAt: startedAt.value,
-    endedAt: endedAt.value || null,
-    isActive: isActive.value,
-  });
+  const result = projectSchema.safeParse(toPayload());
 
   if (!result.success) {
     errorMessage.value =

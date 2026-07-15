@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { projectSchema } from "~/schemas/project";
-import type { Project } from "~/types/project";
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
@@ -11,26 +10,21 @@ const { fetchProjectDetail, updateProject, deleteProject } = useProjects();
 const isEditing = ref(false);
 const errorMessage = ref("");
 
-const name = ref("");
-const amount = ref(0);
-const description = ref("");
-const startedAt = ref("");
-const endedAt = ref("");
-const isActive = ref(false);
+const {
+  name,
+  amount,
+  description,
+  startedAt,
+  endedAt,
+  isActive,
+  setForm,
+  toPayload,
+} = useProjectForm();
 
 const route = useRoute();
 const projectId = route.params.projectId;
 
 const { data, pending, error, refresh } = await fetchProjectDetail(projectId);
-
-const setForm = (project: Project) => {
-  name.value = project.name;
-  amount.value = project.amount;
-  description.value = project.description;
-  startedAt.value = project.startedAt;
-  endedAt.value = project.endedAt ?? "";
-  isActive.value = project.isActive;
-};
 
 if (data.value?.data) {
   setForm(data.value.data);
@@ -51,14 +45,7 @@ const cancelEditing = () => {
 const handleUpdate = async () => {
   errorMessage.value = "";
 
-  const result = projectSchema.safeParse({
-    name: name.value,
-    amount: amount.value,
-    description: description.value,
-    startedAt: startedAt.value,
-    endedAt: endedAt.value || null,
-    isActive: isActive.value,
-  });
+  const result = projectSchema.safeParse(toPayload());
 
   if (!result.success) {
     errorMessage.value =
