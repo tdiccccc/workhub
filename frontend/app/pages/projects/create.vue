@@ -1,31 +1,43 @@
 <script setup lang="ts">
+import { projectSchema } from "~/schemas/project";
+
 definePageMeta({
   middleware: "auth",
 });
 
 const name = ref("");
-const amount = ref("");
+const amount = ref(0);
 const description = ref("");
 const startedAt = ref("");
 const endedAt = ref("");
-const isActive = ref("");
+const isActive = ref(false);
 
 const errorMessage = ref("");
 
 const handleSubmit = async () => {
   errorMessage.value = "";
+
+  const result = projectSchema.safeParse({
+    name: name.value,
+    amount: amount.value,
+    description: description.value,
+    startedAt: startedAt.value,
+    endedAt: endedAt.value || null,
+    isActive: isActive.value,
+  });
+
+  if (!result.success) {
+    errorMessage.value =
+      result.error.issues[0]?.message ?? "入力内容を確認してください";
+    return;
+  }
+
   try {
     await $fetch("/api/projects", {
       method: "POST",
-      body: {
-        name: name.value,
-        amount: amount.value,
-        description: description.value,
-        startedAt: startedAt.value,
-        endedAt: endedAt.value,
-        isActive: isActive.value,
-      },
+      body: result.data,
     });
+    await navigateTo("/dashboard");
   } catch (error) {
     errorMessage.value = "プロジェクトの作成に失敗しました。";
   }

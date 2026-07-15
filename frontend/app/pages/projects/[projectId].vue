@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { projectSchema } from "~/schemas/project";
+
 definePageMeta({
   middleware: "auth",
 });
 const isEditing = ref(false);
+const errorMessage = ref("");
 
 const name = ref("");
 const amount = ref(0);
@@ -60,16 +63,26 @@ const cancelEditing = () => {
 };
 
 const handleUpdate = async () => {
+  errorMessage.value = "";
+
+  const result = projectSchema.safeParse({
+    name: name.value,
+    amount: amount.value,
+    description: description.value,
+    startedAt: startedAt.value,
+    endedAt: endedAt.value || null,
+    isActive: isActive.value,
+  });
+
+  if (!result.success) {
+    errorMessage.value =
+      result.error.issues[0]?.message ?? "入力内容を確認してください";
+    return;
+  }
+
   await $fetch(`/api/projects/${projectId}`, {
     method: "PUT",
-    body: {
-      name: name.value,
-      amount: amount.value,
-      description: description.value,
-      startedAt: startedAt.value,
-      endedAt: endedAt.value || null,
-      isActive: isActive.value,
-    },
+    body: result.data,
   });
 
   await refresh();
@@ -96,6 +109,10 @@ const handleDelete = async () => {
     <NuxtLink to="/dashboard"> ダッシュボードへ戻る </NuxtLink>
 
     <h1>プロジェクト詳細</h1>
+
+    <p v-if="errorMessage">
+      {{ errorMessage }}
+    </p>
 
     <p v-if="pending">読み込み中...</p>
 
