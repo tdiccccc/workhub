@@ -2,6 +2,11 @@
 import LoginForm from "~/components/features/auth/LoginForm.vue";
 import { loginSchema } from "~/schemas/auth";
 
+// definePageMeta:そのページ専用の設定を書くためのNuxtの関数
+definePageMeta({
+  layout: "auth",
+});
+
 const email = ref("");
 const password = ref("");
 const errorMessage = ref("");
