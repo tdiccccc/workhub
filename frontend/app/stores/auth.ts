@@ -1,5 +1,10 @@
-import type { ApiResponse } from '~/types/api'
 import type { CurrentUser } from '~/types/auth'
+
+import {
+  fetchCurrentUser as fetchCurrentUserApi,
+  login as loginApi,
+  logout as logoutApi,
+} from '~/services/auth'
 
 export const useAuthStore = defineStore('auth', () => {
     // ログイン中のユーザー
@@ -12,7 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
      * ログインしているユーザーを取得
      */
     const fetchCurrentUser = async () => {
-        const response = await $fetch<ApiResponse<CurrentUser>>('/api/auth/current-user')
+        const response = await fetchCurrentUserApi()
 
         user.value = response.data
     }
@@ -23,13 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
      * @param password 
      */
     const login = async (email: string, password: string) => {
-        await $fetch<ApiResponse<null>>('/api/auth/login', {
-        method: 'POST',
-        body: {
-            email,
-            password,
-        },
-        })
+        await loginApi(email, password)
 
         await fetchCurrentUser()
     }
@@ -38,9 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
      * ログアウト
      */
     const logout = async () => {
-        await $fetch<ApiResponse<null>>('/api/auth/logout', {
-        method: 'POST',
-        })
+        await logoutApi()
 
         // ユーザーをnull
         user.value = null
