@@ -3,6 +3,7 @@ import { projectSchema } from "~/schemas/project";
 import type { ApiResponse } from "~/types/api";
 import type { Project } from "~/types/project";
 import { deleteProject, fetchProject, updateProject } from "~/services/project";
+import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -102,56 +103,15 @@ const handleDelete = async () => {
     <p v-else-if="error">プロジェクト詳細の取得に失敗しました。</p>
 
     <form v-else-if="data?.data">
-      <div>
-        <label for="name">プロジェクト名</label>
-        <input id="name" v-model="name" type="text" :readonly="!isEditing" />
-      </div>
-
-      <div>
-        <label for="amount">受注金額</label>
-        <input
-          id="amount"
-          v-model.number="amount"
-          type="number"
-          :readonly="!isEditing"
-        />
-      </div>
-
-      <div>
-        <label for="description">概要</label>
-        <textarea
-          id="description"
-          v-model="description"
-          :readonly="!isEditing"
-        />
-      </div>
-
-      <div>
-        <label for="startedAt">開始日時</label>
-        <input
-          id="startedAt"
-          v-model="startedAt"
-          type="datetime-local"
-          :readonly="!isEditing"
-        />
-      </div>
-
-      <div>
-        <label for="endedAt">終了日時</label>
-        <input
-          id="endedAt"
-          v-model="endedAt"
-          type="datetime-local"
-          :readonly="!isEditing"
-        />
-      </div>
-
-      <div>
-        <label>
-          <input v-model="isActive" type="checkbox" :disabled="!isEditing" />
-          有効
-        </label>
-      </div>
+      <ProjectForm
+        v-model:name="name"
+        v-model:amount="amount"
+        v-model:description="description"
+        v-model:startedAt="startedAt"
+        v-model:endedAt="endedAt"
+        v-model:isActive="isActive"
+        :readonly="!isEditing"
+      />
 
       <div v-if="!isEditing">
         <button type="button" @click="startEditing">編集</button>
