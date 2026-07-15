@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { projectSchema } from "~/schemas/project";
-import type { ApiResponse } from "~/types/api";
 import type { Project } from "~/types/project";
-import { deleteProject, fetchProject, updateProject } from "~/services/project";
+import { deleteProject, updateProject } from "~/services/project";
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 
 definePageMeta({
   middleware: "auth",
 });
+
+const { fetchProjectDetail } = useProjects();
 const isEditing = ref(false);
 const errorMessage = ref("");
 
@@ -21,10 +22,7 @@ const isActive = ref(false);
 const route = useRoute();
 const projectId = route.params.projectId;
 
-const { data, pending, error, refresh } = await useAsyncData(
-  `project-${projectId}`,
-  () => fetchProject(projectId),
-);
+const { data, pending, error, refresh } = await fetchProjectDetail(projectId);
 
 const setForm = (project: Project) => {
   name.value = project.name;
