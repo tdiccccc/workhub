@@ -1,23 +1,10 @@
 <script setup lang="ts">
+import type { ApiResponse } from "~/types/api";
+import type { Project } from "~/types/project";
+
 definePageMeta({
   middleware: "auth",
 });
-
-type Project = {
-  id: number;
-  name: string;
-  amount: number;
-  description: string;
-  startedAt: string;
-  endedAt: string | null;
-  isActive: boolean;
-};
-
-type ApiResponse<T> = {
-  status: number;
-  message: string;
-  data: T;
-};
 
 const authStore = useAuthStore();
 

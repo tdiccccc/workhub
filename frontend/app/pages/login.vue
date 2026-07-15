@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { loginSchema } from "~/schemas/auth";
+import type { ApiResponse } from "~/types/api";
+import type { CurrentUser } from "~/types/auth";
+
 const email = ref("");
 const password = ref("");
 const errorMessage = ref("");

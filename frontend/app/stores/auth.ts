@@ -1,12 +1,5 @@
-type CurrentUser = {
-    email: string
-}
-
-type ApiResponse<T> = {
-    status: number
-    message: string
-    data: T
-}
+import type { ApiResponse } from '~/types/api'
+import type { CurrentUser } from '~/types/auth'
 
 export const useAuthStore = defineStore('auth', () => {
     // ログイン中のユーザー
