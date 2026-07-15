@@ -15,6 +15,12 @@ type ApiResponse<T> = {
   data: T;
 };
 
+const authStore = useAuthStore();
+
+const handleLogout = async () => {
+  await authStore.logout();
+};
+
 const { data, pending, error } =
   await useFetch<ApiResponse<Project[]>>("/api/projects");
 </script>
@@ -23,6 +29,7 @@ const { data, pending, error } =
   <div>
     <h1>ダッシュボード</h1>
     <p>ログイン成功</p>
+    <button type="button" @click="handleLogout">ログアウト</button>
     <NuxtLink to="/projects/create"> プロジェクト作成 </NuxtLink>
     <section>
       <h2>プロジェクト一覧</h2>

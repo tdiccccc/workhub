@@ -2,14 +2,10 @@
 const email = ref("");
 const password = ref("");
 
+const authStore = useAuthStore();
+
 const handleSubmit = async () => {
-  await $fetch("/api/auth/login", {
-    method: "POST",
-    body: {
-      email: email.value,
-      password: password.value,
-    },
-  });
+  await authStore.login(email.value, password.value);
 
   await navigateTo("/dashboard");
 };
