@@ -1,17 +1,18 @@
 import {
-    createProject,
+    createProject as createProjectApi,
+    deleteProject as deleteProjectApi,
     fetchProject,
     fetchProjects,
-    updateProject,
-    deleteProject,
+    updateProject as updateProjectApi,
 } from "~/services/project";
 
 import type { ProjectForm } from "~/schemas/project";
 
 export const useProjects = () => {
-    const createProjectDetail = async (form: ProjectForm) => {
-        return await createProject(form);
-    }
+    const createProject = async (form: ProjectForm) => {
+        return await createProjectApi(form);
+    };
+
     const fetchProjectList = () => {
         return useAsyncData("projects", fetchProjects);
     };
@@ -21,22 +22,22 @@ export const useProjects = () => {
         return useAsyncData(`project-${projectId}`, () => fetchProject(projectId));
     };
 
-    const updateProjectDetail = async (
+    const updateProject = async (
         projectId: string | string[],
         form: ProjectForm,
     ) => {
-        return await updateProject(projectId, form);
-    }
+        return await updateProjectApi(projectId, form);
+    };
 
-    const deleteProjectDetail = async (projectId: string | string[]) => {
-        return await deleteProject(projectId);
-    }
+    const deleteProject = async (projectId: string | string[]) => {
+        return await deleteProjectApi(projectId);
+    };
 
     return {
-        createProjectDetail,
+        createProject,
         fetchProjectList,
         fetchProjectDetail,
-        updateProjectDetail,
-        deleteProjectDetail,
+        updateProject,
+        deleteProject,
     };
 };

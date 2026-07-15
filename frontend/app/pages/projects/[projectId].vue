@@ -7,8 +7,7 @@ definePageMeta({
   middleware: "auth",
 });
 
-const { fetchProjectDetail, updateProjectDetail, deleteProjectDetail } =
-  useProjects();
+const { fetchProjectDetail, updateProject, deleteProject } = useProjects();
 const isEditing = ref(false);
 const errorMessage = ref("");
 
@@ -67,7 +66,7 @@ const handleUpdate = async () => {
     return;
   }
 
-  await updateProjectDetail(projectId, result.data);
+  await updateProject(projectId, result.data);
 
   await refresh();
   isEditing.value = false;
@@ -80,7 +79,7 @@ const handleDelete = async () => {
     return;
   }
 
-  await deleteProjectDetail(projectId);
+  await deleteProject(projectId);
 
   await navigateTo("/dashboard");
 };

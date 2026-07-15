@@ -6,7 +6,7 @@ definePageMeta({
   middleware: "auth",
 });
 
-const { createProjectDetail } = useProjects();
+const { createProject } = useProjects();
 const name = ref("");
 const amount = ref(0);
 const description = ref("");
@@ -35,7 +35,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    await createProjectDetail(result.data);
+    await createProject(result.data);
     await navigateTo("/dashboard");
   } catch (error) {
     errorMessage.value = "プロジェクトの作成に失敗しました。";
