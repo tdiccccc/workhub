@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: "auth",
+});
 const isEditing = ref(false);
 
 const name = ref("");

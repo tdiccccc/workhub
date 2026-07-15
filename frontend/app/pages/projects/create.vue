@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: "auth",
+});
+
 const name = ref("");
 const amount = ref("");
 const description = ref("");
