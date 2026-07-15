@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { projectSchema } from "~/schemas/project";
+import { createProject } from "~/services/project";
 
 definePageMeta({
   middleware: "auth",
@@ -33,10 +34,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    await $fetch("/api/projects", {
-      method: "POST",
-      body: result.data,
-    });
+    await createProject(result.data);
     await navigateTo("/dashboard");
   } catch (error) {
     errorMessage.value = "プロジェクトの作成に失敗しました。";

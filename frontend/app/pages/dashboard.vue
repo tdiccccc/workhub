@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { ApiResponse } from "~/types/api";
-import type { Project } from "~/types/project";
+import { fetchProjects } from "~/services/project";
 
 definePageMeta({
   middleware: "auth",
@@ -12,8 +11,7 @@ const handleLogout = async () => {
   await authStore.logout();
 };
 
-const { data, pending, error } =
-  await useFetch<ApiResponse<Project[]>>("/api/projects");
+const { data, pending, error } = await useAsyncData("projects", fetchProjects);
 </script>
 
 <template>

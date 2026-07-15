@@ -2,6 +2,7 @@
 import { projectSchema } from "~/schemas/project";
 import type { ApiResponse } from "~/types/api";
 import type { Project } from "~/types/project";
+import { deleteProject, fetchProject, updateProject } from "~/services/project";
 
 definePageMeta({
   middleware: "auth",
@@ -19,8 +20,9 @@ const isActive = ref(false);
 const route = useRoute();
 const projectId = route.params.projectId;
 
-const { data, pending, error, refresh } = await useFetch<ApiResponse<Project>>(
-  `/api/projects/${projectId}`,
+const { data, pending, error, refresh } = await useAsyncData(
+  `project-${projectId}`,
+  () => fetchProject(projectId),
 );
 
 const setForm = (project: Project) => {
@@ -66,10 +68,7 @@ const handleUpdate = async () => {
     return;
   }
 
-  await $fetch(`/api/projects/${projectId}`, {
-    method: "PUT",
-    body: result.data,
-  });
+  await updateProject(projectId, result.data);
 
   await refresh();
   isEditing.value = false;
@@ -82,9 +81,7 @@ const handleDelete = async () => {
     return;
   }
 
-  await $fetch(`/api/projects/${projectId}`, {
-    method: "DELETE",
-  });
+  await deleteProject(projectId);
 
   await navigateTo("/dashboard");
 };
