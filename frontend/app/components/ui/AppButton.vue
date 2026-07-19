@@ -3,6 +3,7 @@ const props = withDefaults(
   defineProps<{
     variant?: "primary" | "secondary" | "danger";
     type?: "button" | "submit";
+    fullWidth?: boolean;
   }>(),
   {
     variant: "secondary",
@@ -29,6 +30,7 @@ const buttonClass = computed(() => {
     :class="[
       'px-4 py-2 text-sm font-semibold',
       buttonClass,
+      fullWidth ? 'w-full' : '',
     ]"
   >
     <slot />
