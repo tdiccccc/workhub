@@ -49,9 +49,9 @@ const handleSubmit = async () => {
     </div>
     <UiAppPanel title="基本情報">
       <form class="space-y-6" @submit.prevent="handleSubmit">
-        <p v-if="errorMessage" class="text-sm text-red-600">
+        <UiAppStatusMessage v-if="errorMessage" type="error">
           {{ errorMessage }}
-        </p>
+        </UiAppStatusMessage>
 
         <ProjectForm
           v-model:name="name"

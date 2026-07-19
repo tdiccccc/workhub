@@ -57,10 +57,13 @@ const handleUpdate = async () => {
     return;
   }
 
-  await updateProject(projectId, payload);
-
-  await refresh();
-  isEditing.value = false;
+  try {
+    await updateProject(projectId, payload);
+    await refresh();
+    isEditing.value = false;
+  } catch (error) {
+    errorMessage.value = "プロジェクトの更新に失敗しました。";
+  }
 };
 
 const handleDelete = async () => {
@@ -70,9 +73,12 @@ const handleDelete = async () => {
     return;
   }
 
-  await deleteProject(projectId);
-
-  await navigateTo("/dashboard");
+  try {
+    await deleteProject(projectId);
+    await navigateTo("/dashboard");
+  } catch (error) {
+    errorMessage.value = "プロジェクトの削除に失敗しました。";
+  }
 };
 </script>
 
@@ -89,17 +95,17 @@ const handleDelete = async () => {
       />
     </div>
 
-    <p v-if="errorMessage" class="text-sm text-red-600">
+    <UiAppStatusMessage v-if="errorMessage" type="error">
       {{ errorMessage }}
-    </p>
+    </UiAppStatusMessage>
 
-    <p v-if="pending" class="text-sm text-slate-500">
+    <UiAppStatusMessage v-if="pending">
       読み込み中...
-    </p>
+    </UiAppStatusMessage>
 
-    <p v-else-if="error" class="text-sm text-red-600">
+    <UiAppStatusMessage v-else-if="error" type="error">
       Project詳細の取得に失敗しました。
-    </p>
+    </UiAppStatusMessage>
 
     <UiAppPanel v-else-if="data?.data" title="基本情報">
       <form class="space-y-6">
