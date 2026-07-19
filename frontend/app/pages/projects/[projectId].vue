@@ -85,9 +85,9 @@ const handleDelete = async () => {
 <template>
   <div class="mx-auto max-w-3xl space-y-6">
     <div>
-      <NuxtLink to="/dashboard" class="text-sm text-sky-800 hover:text-sky-900">
+      <UiAppBackLink to="/dashboard">
         ダッシュボードへ戻る
-      </NuxtLink>
+      </UiAppBackLink>
 
       <UiAppPageHeader
         title="Project詳細"
