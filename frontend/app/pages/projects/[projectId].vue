@@ -83,12 +83,10 @@ const handleDelete = async () => {
         ダッシュボードへ戻る
       </NuxtLink>
 
-      <h2 class="mt-3 text-xl font-semibold tracking-wide text-slate-900">
-        Project詳細
-      </h2>
-      <p class="mt-1 text-sm text-slate-500">
-        Project の基本情報を確認・編集できます。
-      </p>
+      <UiAppPageHeader
+        title="Project詳細"
+        description="Project の基本情報を確認・編集できます。"
+      />
     </div>
 
     <p v-if="errorMessage" class="text-sm text-red-600">

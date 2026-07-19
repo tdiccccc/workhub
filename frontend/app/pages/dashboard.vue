@@ -12,23 +12,18 @@ const projects = computed(() => data.value?.data ?? []);
 
 <template>
   <div class="space-y-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h2 class="text-xl font-semibold tracking-wide text-slate-900">
-          ダッシュボード
-        </h2>
-        <p class="mt-1 text-sm text-slate-500">
-          Project の状況を確認できます。
-        </p>
-      </div>
-
-      <NuxtLink
-        to="/projects/create"
-        class="bg-sky-800 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-900"
-      >
-        + Project作成
-      </NuxtLink>
-    </div>
+    <UiAppPageHeader
+      title="Project一覧"
+      description="登録されているProjectを確認できます。"
+    >
+      <template #actions>
+        <NuxtLink to="/projects/create">
+          <UiAppButton variant="primary">
+            新規作成
+          </UiAppButton>
+        </NuxtLink>
+      </template>
+    </UiAppPageHeader>
 
     <section class="border border-slate-300 bg-white">
       <div class="border-b border-slate-300 px-4 py-3">

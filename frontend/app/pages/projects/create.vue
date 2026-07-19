@@ -42,12 +42,10 @@ const handleSubmit = async () => {
         ダッシュボードへ戻る
       </NuxtLink>
 
-      <h2 class="mt-3 text-xl font-semibold tracking-wide text-slate-900">
-        Project作成
-      </h2>
-      <p class="mt-1 text-sm text-slate-500">
-        新しいProjectを登録します。
-      </p>
+      <UiAppPageHeader
+        title="Project作成"
+        description="新しいProjectを登録します。"
+      />
     </div>
 
     <section class="border border-slate-300 bg-white">
