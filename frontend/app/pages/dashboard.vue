@@ -5,31 +5,53 @@ definePageMeta({
   middleware: "auth",
 });
 
-const authStore = useAuthStore();
 const { fetchProjectList } = useProjects();
-
 const { data, pending, error } = await fetchProjectList();
 const projects = computed(() => data.value?.data ?? []);
-
-const handleLogout = async () => {
-  await authStore.logout();
-};
 </script>
 
 <template>
-  <div>
-    <h1>ダッシュボード</h1>
-    <p>ログイン成功</p>
-    <button type="button" @click="handleLogout">ログアウト</button>
-    <NuxtLink to="/projects/create"> プロジェクト作成 </NuxtLink>
-    <section>
-      <h2>プロジェクト一覧</h2>
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-semibold tracking-wide text-slate-900">
+          ダッシュボード
+        </h2>
+        <p class="mt-1 text-sm text-slate-500">
+          Project の状況を確認できます。
+        </p>
+      </div>
 
-      <p v-if="pending">読み込み中...</p>
+      <NuxtLink
+        to="/projects/create"
+        class="bg-sky-800 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-900"
+      >
+        + Project作成
+      </NuxtLink>
+    </div>
 
-      <p v-else-if="error">プロジェクト一覧の取得に失敗しました。</p>
-      <p v-else-if="projects.length === 0">プロジェクトはまだありません。</p>
-      <ProjectList v-else :projects="projects" />
+    <section class="border border-slate-300 bg-white">
+      <div class="border-b border-slate-300 px-4 py-3">
+        <h3 class="text-base font-semibold tracking-wide text-slate-900">
+          Project一覧
+        </h3>
+      </div>
+
+      <div class="p-4">
+        <p v-if="pending" class="text-sm text-slate-500">
+          読み込み中...
+        </p>
+
+        <p v-else-if="error" class="text-sm text-red-600">
+          Project一覧の取得に失敗しました。
+        </p>
+
+        <p v-else-if="projects.length === 0" class="text-sm text-slate-500">
+          Project はまだありません。
+        </p>
+
+        <ProjectList v-else :projects="projects" />
+      </div>
     </section>
   </div>
 </template>
