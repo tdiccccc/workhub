@@ -25,6 +25,13 @@ const {
 const route = useRoute();
 const projectId = route.params.projectId;
 
+if (!projectId) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Project ID is required",
+  });
+}
+
 const { data, pending, error, refresh } = await fetchProjectDetail(projectId);
 
 if (data.value?.data) {
