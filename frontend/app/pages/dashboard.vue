@@ -34,9 +34,19 @@ const projects = computed(() => data.value?.data ?? []);
         Project一覧の取得に失敗しました。
       </p>
 
-      <p v-else-if="projects.length === 0" class="text-sm text-slate-500">
-        Project はまだありません。
-      </p>
+      <UiAppEmptyState
+        v-else-if="projects.length === 0"
+        title="Project はまだありません"
+        description="新しいProjectを作成すると、ここに一覧表示されます。"
+      >
+        <template #actions>
+          <NuxtLink to="/projects/create">
+            <UiAppButton variant="primary">
+              新規作成
+            </UiAppButton>
+          </NuxtLink>
+        </template>
+      </UiAppEmptyState>
 
       <ProjectList v-else :projects="projects" />
     </UiAppPanel>
