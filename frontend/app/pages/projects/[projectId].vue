@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
+import ProjectDetailActions from "~/components/features/project/ProjectDetailActions.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -94,17 +95,13 @@ const handleDelete = async () => {
         :errors="errors"
       />
 
-      <div v-if="!isEditing">
-        <button type="button" @click="startEditing">編集</button>
-      </div>
-
-      <div v-else>
-        <button type="button" @click="handleUpdate">更新</button>
-
-        <button type="button" @click="handleDelete">削除</button>
-
-        <button type="button" @click="cancelEditing">キャンセル</button>
-      </div>
+      <ProjectDetailActions
+        :is-editing="isEditing"
+        @edit="startEditing"
+        @update="handleUpdate"
+        @delete="handleDelete"
+        @cancel="cancelEditing"
+      />
     </form>
   </div>
 </template>
