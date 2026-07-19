@@ -29,18 +29,26 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div>
-    <h1>ログイン</h1>
+  <div class="flex min-h-screen items-center justify-center px-6">
+    <section class="w-full max-w-sm border border-slate-300 bg-white p-8 shadow-sm">
+      <h1 class="mb-2 text-2xl font-semibold tracking-wide text-slate-900">
+        WorkHub
+      </h1>
 
-    <p v-if="errorMessage">
-      {{ errorMessage }}
-    </p>
+      <p class="mb-6 text-sm text-slate-500">
+        案件・工数・進捗をひとつに。
+      </p>
 
-    <LoginForm
-      v-model:email="email"
-      v-model:password="password"
-      :errors="errors"
-      @submit="handleSubmit"
-    />
+      <p v-if="errorMessage" class="mb-4 text-sm text-red-600">
+        {{ errorMessage }}
+      </p>
+      
+      <LoginForm
+        v-model:email="email"
+        v-model:password="password"
+        :errors="errors"
+        @submit="handleSubmit"
+      />
+    </section>
   </div>
 </template>

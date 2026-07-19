@@ -19,23 +19,44 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
-    <input
-      v-model="email"
-      type="email"
-      name="email"
-      placeholder="メールアドレスを入力してください"
-    />
-    <p v-if="errors?.email">{{ errors.email }}</p>
+  <form class="space-y-4" @submit.prevent="handleSubmit">
+    <div>
+      <label class="mb-1 block text-sm font-medium text-slate-700">
+        メールアドレス
+      </label>
+      <input
+        v-model="email"
+        class="w-full border border-slate-300 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-sky-700 focus:bg-white"
+        type="email"
+        name="email"
+        placeholder="admin@example.com"
+      />
+      <p v-if="errors?.email" class="mt-1 text-xs text-red-600">
+        {{ errors.email }}
+      </p>
+    </div>
 
-    <input
-      v-model="password"
-      type="password"
-      name="password"
-      placeholder="パスワードを入力してください"
-    />
-    <p v-if="errors?.password">{{ errors.password }}</p>
+    <div>
+      <label class="mb-1 block text-sm font-medium text-slate-700">
+        パスワード
+      </label>
+      <input
+        v-model="password"
+        class="w-full border border-slate-300 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-sky-700 focus:bg-white"
+        type="password"
+        name="password"
+        placeholder="password"
+      />
+      <p v-if="errors?.password" class="mt-1 text-xs text-red-600">
+        {{ errors.password }}
+      </p>
+    </div>
 
-    <button type="submit">ログイン</button>
+    <button
+      class="w-full bg-sky-800 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-900"
+      type="submit"
+    >
+      ログイン
+    </button>
   </form>
 </template>
