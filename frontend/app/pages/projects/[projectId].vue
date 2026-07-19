@@ -70,38 +70,59 @@ const handleDelete = async () => {
 </script>
 
 <template>
-  <div>
-    <NuxtLink to="/dashboard"> ダッシュボードへ戻る </NuxtLink>
+  <div class="mx-auto max-w-3xl space-y-6">
+    <div>
+      <NuxtLink to="/dashboard" class="text-sm text-sky-800 hover:text-sky-900">
+        ダッシュボードへ戻る
+      </NuxtLink>
 
-    <h1>プロジェクト詳細</h1>
+      <h2 class="mt-3 text-xl font-semibold tracking-wide text-slate-900">
+        Project詳細
+      </h2>
+      <p class="mt-1 text-sm text-slate-500">
+        Project の基本情報を確認・編集できます。
+      </p>
+    </div>
 
-    <p v-if="errorMessage">
+    <p v-if="errorMessage" class="text-sm text-red-600">
       {{ errorMessage }}
     </p>
 
-    <p v-if="pending">読み込み中...</p>
+    <p v-if="pending" class="text-sm text-slate-500">
+      読み込み中...
+    </p>
 
-    <p v-else-if="error">プロジェクト詳細の取得に失敗しました。</p>
+    <p v-else-if="error" class="text-sm text-red-600">
+      Project詳細の取得に失敗しました。
+    </p>
 
-    <form v-else-if="data?.data">
-      <ProjectForm
-        v-model:name="name"
-        v-model:amount="amount"
-        v-model:description="description"
-        v-model:startedAt="startedAt"
-        v-model:endedAt="endedAt"
-        v-model:isActive="isActive"
-        :readonly="!isEditing"
-        :errors="errors"
-      />
+    <form v-else-if="data?.data" class="border border-slate-300 bg-white">
+      <div class="border-b border-slate-300 px-4 py-3">
+        <h3 class="text-base font-semibold tracking-wide text-slate-900">
+          基本情報
+        </h3>
+      </div>
 
-      <ProjectDetailActions
-        :is-editing="isEditing"
-        @edit="startEditing"
-        @update="handleUpdate"
-        @delete="handleDelete"
-        @cancel="cancelEditing"
-      />
+      <div class="space-y-6 p-4">
+        <ProjectForm
+          v-model:name="name"
+          v-model:amount="amount"
+          v-model:description="description"
+          v-model:startedAt="startedAt"
+          v-model:endedAt="endedAt"
+          v-model:isActive="isActive"
+          :readonly="!isEditing"
+          :errors="errors"
+        />
+
+        <ProjectDetailActions
+          :is-editing="isEditing"
+          @edit="startEditing"
+          @update="handleUpdate"
+          @delete="handleDelete"
+          @cancel="cancelEditing"
+        />
+      </div>
     </form>
   </div>
 </template>
