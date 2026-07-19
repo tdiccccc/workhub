@@ -25,28 +25,20 @@ const projects = computed(() => data.value?.data ?? []);
       </template>
     </UiAppPageHeader>
 
-    <section class="border border-slate-300 bg-white">
-      <div class="border-b border-slate-300 px-4 py-3">
-        <h3 class="text-base font-semibold tracking-wide text-slate-900">
-          Project一覧
-        </h3>
-      </div>
+    <UiAppPanel title="Project一覧">
+      <p v-if="pending" class="text-sm text-slate-500">
+        読み込み中...
+      </p>
 
-      <div class="p-4">
-        <p v-if="pending" class="text-sm text-slate-500">
-          読み込み中...
-        </p>
+      <p v-else-if="error" class="text-sm text-red-600">
+        Project一覧の取得に失敗しました。
+      </p>
 
-        <p v-else-if="error" class="text-sm text-red-600">
-          Project一覧の取得に失敗しました。
-        </p>
+      <p v-else-if="projects.length === 0" class="text-sm text-slate-500">
+        Project はまだありません。
+      </p>
 
-        <p v-else-if="projects.length === 0" class="text-sm text-slate-500">
-          Project はまだありません。
-        </p>
-
-        <ProjectList v-else :projects="projects" />
-      </div>
-    </section>
+      <ProjectList v-else :projects="projects" />
+    </UiAppPanel>
   </div>
 </template>

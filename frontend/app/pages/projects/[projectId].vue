@@ -101,14 +101,8 @@ const handleDelete = async () => {
       Project詳細の取得に失敗しました。
     </p>
 
-    <form v-else-if="data?.data" class="border border-slate-300 bg-white">
-      <div class="border-b border-slate-300 px-4 py-3">
-        <h3 class="text-base font-semibold tracking-wide text-slate-900">
-          基本情報
-        </h3>
-      </div>
-
-      <div class="space-y-6 p-4">
+    <UiAppPanel v-else-if="data?.data" title="基本情報">
+      <form class="space-y-6">
         <ProjectForm
           v-model:name="name"
           v-model:amount="amount"
@@ -127,7 +121,7 @@ const handleDelete = async () => {
           @delete="handleDelete"
           @cancel="cancelEditing"
         />
-      </div>
-    </form>
+      </form>
+    </UiAppPanel>
   </div>
 </template>

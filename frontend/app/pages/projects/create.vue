@@ -47,15 +47,8 @@ const handleSubmit = async () => {
         description="新しいProjectを登録します。"
       />
     </div>
-
-    <section class="border border-slate-300 bg-white">
-      <div class="border-b border-slate-300 px-4 py-3">
-        <h3 class="text-base font-semibold tracking-wide text-slate-900">
-          基本情報
-        </h3>
-      </div>
-
-      <form class="space-y-6 p-4" @submit.prevent="handleSubmit">
+    <UiAppPanel title="基本情報">
+      <form class="space-y-6" @submit.prevent="handleSubmit">
         <p v-if="errorMessage" class="text-sm text-red-600">
           {{ errorMessage }}
         </p>
@@ -79,6 +72,6 @@ const handleSubmit = async () => {
           </UiAppButton>
         </div>
       </form>
-    </section>
+    </UiAppPanel>
   </div>
 </template>
