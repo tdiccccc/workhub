@@ -36,24 +36,51 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div>
-    <h1>プロジェクト作成</h1>
+  <div class="mx-auto max-w-3xl space-y-6">
+    <div>
+      <NuxtLink to="/dashboard" class="text-sm text-sky-800 hover:text-sky-900">
+        ダッシュボードへ戻る
+      </NuxtLink>
 
-    <p v-if="errorMessage">
-      {{ errorMessage }}
-    </p>
+      <h2 class="mt-3 text-xl font-semibold tracking-wide text-slate-900">
+        Project作成
+      </h2>
+      <p class="mt-1 text-sm text-slate-500">
+        新しいProjectを登録します。
+      </p>
+    </div>
 
-    <form @submit.prevent="handleSubmit">
-      <ProjectForm
-        v-model:name="name"
-        v-model:amount="amount"
-        v-model:description="description"
-        v-model:startedAt="startedAt"
-        v-model:endedAt="endedAt"
-        v-model:isActive="isActive"
-        :errors="errors"
-      />
-      <button type="submit">作成</button>
-    </form>
+    <section class="border border-slate-300 bg-white">
+      <div class="border-b border-slate-300 px-4 py-3">
+        <h3 class="text-base font-semibold tracking-wide text-slate-900">
+          基本情報
+        </h3>
+      </div>
+
+      <form class="space-y-6 p-4" @submit.prevent="handleSubmit">
+        <p v-if="errorMessage" class="text-sm text-red-600">
+          {{ errorMessage }}
+        </p>
+
+        <ProjectForm
+          v-model:name="name"
+          v-model:amount="amount"
+          v-model:description="description"
+          v-model:startedAt="startedAt"
+          v-model:endedAt="endedAt"
+          v-model:isActive="isActive"
+          :errors="errors"
+        />
+
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            class="bg-sky-800 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-900"
+          >
+            作成
+          </button>
+        </div>
+      </form>
+    </section>
   </div>
 </template>
