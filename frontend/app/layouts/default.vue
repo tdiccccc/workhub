@@ -1,11 +1,19 @@
-<template>
-  <div>
-    <header>
-      <NuxtLink to="/dashboard"> WorkHub </NuxtLink>
-    </header>
+<script setup lang="ts">
+import AppHeader from "~/components/layout/AppHeader.vue";
+import AppSidebar from "~/components/layout/AppSidebar.vue";
+</script>
 
-    <main>
-      <slot />
-    </main>
+
+<template>
+  <div class="flex min-h-screen bg-slate-100 text-slate-900">
+    <AppSidebar />
+
+    <div class="flex min-w-0 flex-1 flex-col">
+      <AppHeader />
+
+      <main class="flex-1 p-6">
+        <slot />
+      </main>
+    </div>
   </div>
 </template>
