@@ -26,13 +26,13 @@ const projects = computed(() => data.value?.data ?? []);
     </UiAppPageHeader>
 
     <UiAppPanel title="Project一覧">
-      <p v-if="pending" class="text-sm text-slate-500">
+      <UiAppStatusMessage v-if="pending">
         読み込み中...
-      </p>
+      </UiAppStatusMessage>
 
-      <p v-else-if="error" class="text-sm text-red-600">
+      <UiAppStatusMessage v-else-if="error" type="error">
         Project一覧の取得に失敗しました。
-      </p>
+      </UiAppStatusMessage>
 
       <UiAppEmptyState
         v-else-if="projects.length === 0"
