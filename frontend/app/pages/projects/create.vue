@@ -73,12 +73,12 @@ const handleSubmit = async () => {
         />
 
         <div class="flex justify-end">
-          <button
+          <UiAppButton
             type="submit"
-            class="bg-sky-800 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-900"
+            variant="primary"
           >
             作成
-          </button>
+          </UiAppButton>
         </div>
       </form>
     </section>
