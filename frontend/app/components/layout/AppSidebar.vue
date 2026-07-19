@@ -18,7 +18,7 @@
       </NuxtLink>
 
       <NuxtLink
-        to="/dashboard"
+        to="/projects"
         class="border-l-2 border-transparent px-4 py-2 text-slate-700 hover:bg-slate-100"
       >
         案件

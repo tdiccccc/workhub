@@ -4,6 +4,7 @@ const props = withDefaults(
     variant?: "primary" | "secondary" | "danger";
     type?: "button" | "submit";
     fullWidth?: boolean;
+    disabled?: boolean;
   }>(),
   {
     variant: "secondary",
@@ -28,10 +29,11 @@ const buttonClass = computed(() => {
   <button
     :type="type"
     :class="[
-      'px-4 py-2 text-sm font-semibold',
+      'px-4 py-2 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50',
       buttonClass,
       fullWidth ? 'w-full' : '',
     ]"
+    :disabled="disabled"
   >
     <slot />
   </button>
