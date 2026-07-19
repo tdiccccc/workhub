@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ProjectList from "~/components/features/project/ProjectList.vue";
+
 definePageMeta({
   middleware: "auth",
 });
@@ -6,11 +8,12 @@ definePageMeta({
 const authStore = useAuthStore();
 const { fetchProjectList } = useProjects();
 
+const { data, pending, error } = await fetchProjectList();
+const projects = computed(() => data.value?.data ?? []);
+
 const handleLogout = async () => {
   await authStore.logout();
 };
-
-const { data, pending, error } = await fetchProjectList();
 </script>
 
 <template>
@@ -25,20 +28,8 @@ const { data, pending, error } = await fetchProjectList();
       <p v-if="pending">読み込み中...</p>
 
       <p v-else-if="error">プロジェクト一覧の取得に失敗しました。</p>
-
-      <p v-else-if="(data?.data ?? []).length === 0">
-        プロジェクトはまだありません。
-      </p>
-
-      <ul v-else>
-        <li v-for="project in data?.data ?? []" :key="project.id">
-          <NuxtLink :to="`/projects/${project.id}`">
-            <strong>{{ project.name }}</strong>
-          </NuxtLink>
-          <span> / {{ project.amount }}円</span>
-          <p>{{ project.description }}</p>
-        </li>
-      </ul>
+      <p v-else-if="projects.length === 0">プロジェクトはまだありません。</p>
+      <ProjectList v-else :projects="projects" />
     </section>
   </div>
 </template>
