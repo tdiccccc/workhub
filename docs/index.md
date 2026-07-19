@@ -17,6 +17,7 @@ docs/
 ├── api/              # API仕様書
 ├── architecture/     # システム構成・アーキテクチャ
 ├── database/         # ER図・テーブル定義
+├── development/      # ローカル開発手順
 ├── learning/         # 学習ログ
 ├── milestones/       # 開発計画・リリース計画
 ├── requirements/     # 要件定義
@@ -33,6 +34,7 @@ docs/
 | `requirements/` | システム要件、機能要件、非機能要件を管理します。              |
 | `architecture/` | システム構成、アーキテクチャ、ディレクトリ構成、採用技術などを管理します。 |
 | `database/`     | ER図、テーブル定義、データベース設計を管理します。            |
+| [`development/`](./development/local-environment.md) | ローカル開発環境の起動手順、確認コマンドを管理します。 |
 | `api/`          | REST API仕様、認証方式、レスポンス仕様などを管理します。      |
 | `route/`        | Nuxt4の画面ルーティング、画面遷移を管理します。            |
 | `screen/`       | 画面設計、UI設計、画面レイアウトを管理します。              |
