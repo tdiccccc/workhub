@@ -325,7 +325,7 @@ Java側のフィールド名は `private boolean active;` を基本とし、`isA
 
 **レスポンス (201)**
 
-### PUT /api/task-categories/{id}
+### PUT /api/projects/{projectId}/task-categories/{id}
 
 カテゴリ更新
 
@@ -340,7 +340,7 @@ Java側のフィールド名は `private boolean active;` を基本とし、`isA
 
 **レスポンス (200)**
 
-### DELETE /api/task-categories/{id}
+### DELETE /api/projects/{projectId}/task-categories/{id}
 
 カテゴリ削除
 
