@@ -57,12 +57,12 @@ MVPでは学習を優先し、CSRFは一旦無効化する。
 
 ### 認証構成のロードマップ
 
-| バージョン | 認証方式 |
-|------------|----------|
-| v1 | Session |
-| v2 | JWT |
-| v3 | Refresh Token |
-| v4 | OAuth2 |
+| バージョン | 認証方式      |
+| ---------- | ------------- |
+| v1         | Session       |
+| v2         | JWT           |
+| v3         | Refresh Token |
+| v4         | OAuth2        |
 
 ---
 
@@ -70,16 +70,16 @@ MVPでは学習を優先し、CSRFは一旦無効化する。
 
 ### HTTPステータスコード
 
-| コード | 意味 | 使用ケース |
-|--------|------|------------|
-| 200 | OK | 成功(GET, PUT) |
-| 201 | Created | リソース作成成功(POST) |
-| 204 | No Content | 削除成功(DELETE) |
-| 400 | Bad Request | リクエスト不正、バリデーションエラー |
-| 401 | Unauthorized | 認証エラー |
-| 403 | Forbidden | 権限エラー |
-| 404 | Not Found | リソースが存在しない |
-| 500 | Internal Server Error | サーバーエラー |
+| コード | 意味                  | 使用ケース                           |
+| ------ | --------------------- | ------------------------------------ |
+| 200    | OK                    | 成功(GET, PUT)                       |
+| 201    | Created               | リソース作成成功(POST)               |
+| 204    | No Content            | 削除成功(DELETE)                     |
+| 400    | Bad Request           | リクエスト不正、バリデーションエラー |
+| 401    | Unauthorized          | 認証エラー                           |
+| 403    | Forbidden             | 権限エラー                           |
+| 404    | Not Found             | リソースが存在しない                 |
+| 500    | Internal Server Error | サーバーエラー                       |
 
 ### エラーレスポンス形式
 
@@ -278,6 +278,71 @@ Java側のフィールド名は `private boolean active;` を基本とし、`isA
 ### DELETE /api/projects/{projectId}
 
 プロジェクト削除
+
+**レスポンス (204)**
+
+---
+
+## タスクカテゴリAPI
+
+### GET /api/projects/{projectId}/task-categories
+
+プロジェクト内のカテゴリ一覧取得
+
+**レスポンス (200)**
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "project_id": 1,
+      "name": "要件定義",
+      "description": "要件定義フェーズの作業",
+      "color": "#FF5733",
+      "sort_order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+### POST /api/projects/{projectId}/task-categories
+
+カテゴリ作成
+
+**リクエスト**
+
+```json
+{
+  "name": "要件定義",
+  "description": "要件定義フェーズの作業",
+  "color": "#FF5733",
+  "sort_order": 1
+}
+```
+
+**レスポンス (201)**
+
+### PUT /api/task-categories/{id}
+
+カテゴリ更新
+
+**リクエスト**
+
+```json
+{
+  "name": "要件定義（更新）",
+  "color": "#00FF00"
+}
+```
+
+**レスポンス (200)**
+
+### DELETE /api/task-categories/{id}
+
+カテゴリ削除
 
 **レスポンス (204)**
 
@@ -554,18 +619,18 @@ Task Categoryはv0.4で追加する。
 
 GitHub Milestone単位で実装する。
 
-| Milestone | 実装内容 |
-|-----------|----------|
-| v0.1 | 認証、Project CRUD |
-| v0.2 | Task CRUD |
-| v0.3 | WorkLog CRUD |
-| v0.4 | Task Category |
-| v0.5 | 検索、ソート、ページネーション |
-| v0.6 | User、Role |
-| v0.7 | Report |
-| v0.8 | Slack連携 |
-| v0.9 | Backlog連携 |
-| v1.0 | 初回リリース(Docker、AWS、CI/CDを含む) |
+| Milestone | 実装内容                               |
+| --------- | -------------------------------------- |
+| v0.1      | 認証、Project CRUD                     |
+| v0.2      | Task CRUD                              |
+| v0.3      | WorkLog CRUD                           |
+| v0.4      | Task Category                          |
+| v0.5      | 検索、ソート、ページネーション         |
+| v0.6      | User、Role                             |
+| v0.7      | Report                                 |
+| v0.8      | Slack連携                              |
+| v0.9      | Backlog連携                            |
+| v1.0      | 初回リリース(Docker、AWS、CI/CDを含む) |
 
 ---
 
