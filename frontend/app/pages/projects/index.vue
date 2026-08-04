@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ProjectTable from "~/components/features/project/ProjectTable.vue";
+import AppPagination from "~/components/ui/AppPagination.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -61,25 +62,12 @@ const paginatedProjects = computed(() => {
 
       <template v-else>
         <ProjectTable :projects="paginatedProjects" />
-        <div class="mt-4 flex items-center justify-end gap-2">
-          <UiAppButton
-            :disabled="currentPage === 1"
-            @click="currentPage--"
-          >
-            前へ
-          </UiAppButton>
-
-          <span class="text-sm text-slate-600">
-            {{ currentPage }} / {{ totalPages }}
-          </span>
-
-          <UiAppButton
-            :disabled="currentPage === totalPages"
-            @click="currentPage++"
-          >
-            次へ
-          </UiAppButton>
-        </div>
+        <AppPagination
+            :current-page="currentPage"
+            :total-pages="totalPages"
+            @prev="currentPage--"
+            @next="currentPage++"
+        />
       </template>
     </UiAppPanel>
   </div>
