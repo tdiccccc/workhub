@@ -4,6 +4,24 @@ import type { Project } from "~/types/project";
 defineProps<{
   projects: Project[];
 }>();
+
+const formatAmount = (amount: number) => {
+  return `${amount.toLocaleString()}円`;
+};
+
+const formatDateTime = (dateTime: string | null) => {
+  if (!dateTime) {
+    return "-";
+  }
+
+  return new Date(dateTime).toLocaleString("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 </script>
 
 <template>
@@ -29,16 +47,25 @@ defineProps<{
           {{ project.name }}
         </td>
         <td class="border-b border-slate-200 px-3 py-2">
-          {{ project.amount }}
+          {{ formatAmount(project.amount )}}
         </td>
         <td class="border-b border-slate-200 px-3 py-2">
-          {{ project.startedAt }}
+          {{ formatDateTime(project.startedAt) }}
         </td>
         <td class="border-b border-slate-200 px-3 py-2">
-          {{ project.endedAt ?? "-" }}
+          {{ formatDateTime(project.endedAt) }}
         </td>
         <td class="border-b border-slate-200 px-3 py-2">
-          {{ project.isActive ? "有効" : "無効" }}
+            <span
+                :class="[
+                    'inline-flex rounded-full px-2 py-1 text-xs font-semibold',
+                    project.isActive
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-slate-100 text-slate-600',
+                ]"
+                >
+                {{ project.isActive ? "有効" : "無効" }}
+            </span>
         </td>
         <td class="border-b border-slate-200 px-3 py-2 text-right">
           <NuxtLink
