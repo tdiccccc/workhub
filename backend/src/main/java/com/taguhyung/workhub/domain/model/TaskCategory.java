@@ -27,11 +27,11 @@ public class TaskCategory {
         }
 
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("案件カテゴリー名は必須です");
+            throw new IllegalArgumentException("タスクカテゴリー名は必須です");
         }
 
         if (description == null || description.isBlank()) {
-            throw new IllegalArgumentException("案件カテゴリー概要は必須です");
+            throw new IllegalArgumentException("タスクカテゴリー概要は必須です");
         }
 
         TaskCategory taskCategory = new TaskCategory();
@@ -59,11 +59,11 @@ public class TaskCategory {
         }
 
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("案件カテゴリー名は必須です");
+            throw new IllegalArgumentException("タスクカテゴリー名は必須です");
         }
 
         if (description == null || description.isBlank()) {
-            throw new IllegalArgumentException("案件カテゴリー概要は必須です");
+            throw new IllegalArgumentException("タスクカテゴリー概要は必須です");
         }
 
         this.projectId = projectId;
