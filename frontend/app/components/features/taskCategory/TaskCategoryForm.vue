@@ -34,6 +34,7 @@ const taskCategorySortOrder = defineModel<string>("taskCategorySortOrder", { req
       id="taskCategoryColor"
       v-model="taskCategoryColor"
       label="色"
+      type="color"
       :error="taskCategoryErrors.color"
     />
 

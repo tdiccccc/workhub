@@ -16,6 +16,10 @@ const emit = defineEmits<{
 <template>
   <ul class="space-y-2">
     <li v-for="taskCategory in taskCategories" :key="taskCategory.id">
+      <span
+        class="inline-block h-3 w-3 rounded-full"
+        :style="{ backgroundColor: taskCategory.color }"
+      />
       <template v-if="editingTaskCategoryId === taskCategory.id">
         <span>{{ taskCategory.name }} を編集中</span>
 
