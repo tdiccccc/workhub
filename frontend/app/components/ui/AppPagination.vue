@@ -12,22 +12,10 @@ const emit = defineEmits<{
 
 <template>
   <div class="mt-4 flex items-center justify-end gap-2">
-    <UiAppButton
-      :disabled="currentPage === 1"
-      @click="emit('prev')"
-    >
-      前へ
-    </UiAppButton>
+    <UiAppButton :disabled="currentPage === 1" @click="emit('prev')"> 前へ </UiAppButton>
 
-    <span class="text-sm text-slate-600">
-      {{ currentPage }} / {{ totalPages }}
-    </span>
+    <span class="text-sm text-slate-600"> {{ currentPage }} / {{ totalPages }} </span>
 
-    <UiAppButton
-      :disabled="currentPage === totalPages"
-      @click="emit('next')"
-    >
-      次へ
-    </UiAppButton>
+    <UiAppButton :disabled="currentPage === totalPages" @click="emit('next')"> 次へ </UiAppButton>
   </div>
 </template>

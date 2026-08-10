@@ -6,16 +6,8 @@ definePageMeta({
 });
 
 const { createProject } = useProjects();
-const {
-  name,
-  amount,
-  description,
-  startedAt,
-  endedAt,
-  isActive,
-  errors,
-  validate,
-} = useProjectForm();
+const { name, amount, description, startedAt, endedAt, isActive, errors, validate } =
+  useProjectForm();
 
 const errorMessage = ref("");
 
@@ -38,14 +30,9 @@ const handleSubmit = async () => {
 <template>
   <div class="mx-auto max-w-3xl space-y-6">
     <div>
-      <UiAppBackLink to="/dashboard">
-        ダッシュボードへ戻る
-      </UiAppBackLink>
+      <UiAppBackLink to="/dashboard"> ダッシュボードへ戻る </UiAppBackLink>
 
-      <UiAppPageHeader
-        title="Project作成"
-        description="新しいProjectを登録します。"
-      />
+      <UiAppPageHeader title="Project作成" description="新しいProjectを登録します。" />
     </div>
     <UiAppPanel title="基本情報">
       <form class="space-y-6" @submit.prevent="handleSubmit">
@@ -64,12 +51,7 @@ const handleSubmit = async () => {
         />
 
         <div class="flex justify-end">
-          <UiAppButton
-            type="submit"
-            variant="primary"
-          >
-            作成
-          </UiAppButton>
+          <UiAppButton type="submit" variant="primary"> 作成 </UiAppButton>
         </div>
       </form>
     </UiAppPanel>

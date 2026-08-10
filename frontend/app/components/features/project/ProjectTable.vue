@@ -40,16 +40,12 @@ const formatDateTime = (dateTime: string | null) => {
     </thead>
 
     <tbody>
-      <tr
-        v-for="project in projects"
-        :key="project.id"
-        class="hover:bg-slate-50"
-      >
+      <tr v-for="project in projects" :key="project.id" class="hover:bg-slate-50">
         <td class="border-b border-slate-200 px-3 py-2">
           {{ project.name }}
         </td>
         <td class="border-b border-slate-200 px-3 py-2">
-          {{ formatAmount(project.amount )}}
+          {{ formatAmount(project.amount) }}
         </td>
         <td class="border-b border-slate-200 px-3 py-2">
           {{ formatDateTime(project.startedAt) }}
@@ -58,22 +54,17 @@ const formatDateTime = (dateTime: string | null) => {
           {{ formatDateTime(project.endedAt) }}
         </td>
         <td class="border-b border-slate-200 px-3 py-2">
-            <span
-                :class="[
-                    'inline-flex rounded-full px-2 py-1 text-xs font-semibold',
-                    project.isActive
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-slate-100 text-slate-600',
-                ]"
-                >
-                {{ project.isActive ? "有効" : "無効" }}
-            </span>
+          <span
+            :class="[
+              'inline-flex rounded-full px-2 py-1 text-xs font-semibold',
+              project.isActive ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-600',
+            ]"
+          >
+            {{ project.isActive ? "有効" : "無効" }}
+          </span>
         </td>
         <td class="border-b border-slate-200 px-3 py-2 text-right">
-          <NuxtLink
-            :to="`/projects/${project.id}`"
-            class="text-sky-800 hover:text-sky-900"
-          >
+          <NuxtLink :to="`/projects/${project.id}`" class="text-sky-800 hover:text-sky-900">
             詳細
           </NuxtLink>
         </td>

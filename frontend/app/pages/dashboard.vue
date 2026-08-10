@@ -12,23 +12,16 @@ const projects = computed(() => data.value?.data ?? []);
 
 <template>
   <div class="space-y-6">
-    <UiAppPageHeader
-      title="Project一覧"
-      description="登録されているProjectを確認できます。"
-    >
+    <UiAppPageHeader title="Project一覧" description="登録されているProjectを確認できます。">
       <template #actions>
         <NuxtLink to="/projects/create">
-          <UiAppButton variant="primary">
-            新規作成
-          </UiAppButton>
+          <UiAppButton variant="primary"> 新規作成 </UiAppButton>
         </NuxtLink>
       </template>
     </UiAppPageHeader>
 
     <UiAppPanel title="Project一覧">
-      <UiAppStatusMessage v-if="pending">
-        読み込み中...
-      </UiAppStatusMessage>
+      <UiAppStatusMessage v-if="pending"> 読み込み中... </UiAppStatusMessage>
 
       <UiAppStatusMessage v-else-if="error" type="error">
         Project一覧の取得に失敗しました。
@@ -41,9 +34,7 @@ const projects = computed(() => data.value?.data ?? []);
       >
         <template #actions>
           <NuxtLink to="/projects/create">
-            <UiAppButton variant="primary">
-              新規作成
-            </UiAppButton>
+            <UiAppButton variant="primary"> 新規作成 </UiAppButton>
           </NuxtLink>
         </template>
       </UiAppEmptyState>

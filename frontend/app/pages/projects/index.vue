@@ -30,17 +30,13 @@ const paginatedProjects = computed(() => {
     >
       <template #actions>
         <NuxtLink to="/projects/create">
-          <UiAppButton variant="primary">
-            新規作成
-          </UiAppButton>
+          <UiAppButton variant="primary"> 新規作成 </UiAppButton>
         </NuxtLink>
       </template>
     </UiAppPageHeader>
 
     <UiAppPanel title="案件一覧">
-      <UiAppStatusMessage v-if="pending">
-        読み込み中...
-      </UiAppStatusMessage>
+      <UiAppStatusMessage v-if="pending"> 読み込み中... </UiAppStatusMessage>
 
       <UiAppStatusMessage v-else-if="error" type="error">
         案件一覧の取得に失敗しました。
@@ -53,9 +49,7 @@ const paginatedProjects = computed(() => {
       >
         <template #actions>
           <NuxtLink to="/projects/create">
-            <UiAppButton variant="primary">
-              新規作成
-            </UiAppButton>
+            <UiAppButton variant="primary"> 新規作成 </UiAppButton>
           </NuxtLink>
         </template>
       </UiAppEmptyState>
@@ -63,10 +57,10 @@ const paginatedProjects = computed(() => {
       <template v-else>
         <ProjectTable :projects="paginatedProjects" />
         <AppPagination
-            :current-page="currentPage"
-            :total-pages="totalPages"
-            @prev="currentPage--"
-            @next="currentPage++"
+          :current-page="currentPage"
+          :total-pages="totalPages"
+          @prev="currentPage--"
+          @next="currentPage++"
         />
       </template>
     </UiAppPanel>

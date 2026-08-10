@@ -14,10 +14,7 @@ const emit = defineEmits<{
 
 <template>
   <div>
-    <label
-      :for="id"
-      class="flex items-center gap-2 text-sm text-slate-700"
-    >
+    <label :for="id" class="flex items-center gap-2 text-sm text-slate-700">
       <input
         :id="id"
         type="checkbox"
@@ -25,7 +22,7 @@ const emit = defineEmits<{
         :disabled="disabled"
         class="h-4 w-4 border-slate-300 text-sky-800 focus:ring-sky-700 disabled:cursor-not-allowed"
         @change="emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
-      >
+      />
 
       <span v-if="label">{{ label }}</span>
     </label>

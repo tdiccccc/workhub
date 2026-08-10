@@ -15,11 +15,7 @@ const emit = defineEmits<{
 
 <template>
   <div>
-    <label
-      v-if="label"
-      :for="id"
-      class="mb-1 block text-sm font-medium text-slate-700"
-    >
+    <label v-if="label" :for="id" class="mb-1 block text-sm font-medium text-slate-700">
       {{ label }}
     </label>
 

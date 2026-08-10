@@ -12,17 +12,8 @@ const { fetchProjectDetail, updateProject, deleteProject } = useProjects();
 const isEditing = ref(false);
 const errorMessage = ref("");
 
-const {
-  name,
-  amount,
-  description,
-  startedAt,
-  endedAt,
-  isActive,
-  errors,
-  validate,
-  setForm,
-} = useProjectForm();
+const { name, amount, description, startedAt, endedAt, isActive, errors, validate, setForm } =
+  useProjectForm();
 
 const route = useRoute();
 const projectId = route.params.projectId;
@@ -132,23 +123,16 @@ const handleCreateTaskCategory = async () => {
 <template>
   <div class="mx-auto max-w-3xl space-y-6">
     <div>
-      <UiAppBackLink to="/dashboard">
-        ダッシュボードへ戻る
-      </UiAppBackLink>
+      <UiAppBackLink to="/dashboard"> ダッシュボードへ戻る </UiAppBackLink>
 
-      <UiAppPageHeader
-        title="Project詳細"
-        description="Project の基本情報を確認・編集できます。"
-      />
+      <UiAppPageHeader title="Project詳細" description="Project の基本情報を確認・編集できます。" />
     </div>
 
     <UiAppStatusMessage v-if="errorMessage" type="error">
       {{ errorMessage }}
     </UiAppStatusMessage>
 
-    <UiAppStatusMessage v-if="pending">
-      読み込み中...
-    </UiAppStatusMessage>
+    <UiAppStatusMessage v-if="pending"> 読み込み中... </UiAppStatusMessage>
 
     <UiAppStatusMessage v-else-if="error" type="error">
       Project詳細の取得に失敗しました。
@@ -178,9 +162,7 @@ const handleCreateTaskCategory = async () => {
     </UiAppPanel>
 
     <UiAppPanel title="タスクカテゴリ">
-      <UiAppStatusMessage v-if="taskCategoryPending">
-        読み込み中...
-      </UiAppStatusMessage>
+      <UiAppStatusMessage v-if="taskCategoryPending"> 読み込み中... </UiAppStatusMessage>
 
       <UiAppStatusMessage v-else-if="taskCategoryError" type="error">
         タスクカテゴリの取得に失敗しました。
@@ -192,10 +174,7 @@ const handleCreateTaskCategory = async () => {
         description="このProjectで使う作業分類を追加できます。"
       />
 
-      <TaskCategoryList
-        v-else
-        :task-categories="taskCategories"
-      />
+      <TaskCategoryList v-else :task-categories="taskCategories" />
     </UiAppPanel>
 
     <UiAppStatusMessage v-if="taskCategoryCreateError" type="error">
@@ -210,11 +189,7 @@ const handleCreateTaskCategory = async () => {
           v-model:task-category-sort-order="taskCategorySortOrder"
           :task-category-errors="taskCategoryErrors"
         />
-        <UiAppButton
-          type="submit"
-          variant="primary"
-          :disabled="taskCategoryCreatePending"
-        >
+        <UiAppButton type="submit" variant="primary" :disabled="taskCategoryCreatePending">
           作成
         </UiAppButton>
       </form>

@@ -5,7 +5,7 @@ defineProps<{
     description?: string;
     color?: string;
     sortOrder?: string;
-  }
+  };
 }>();
 
 const taskCategoryName = defineModel<string>("taskCategoryName", { required: true });

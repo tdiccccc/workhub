@@ -39,12 +39,6 @@ const handleSubmit = () => {
       :error="errors.password"
     />
 
-    <UiAppButton
-      variant="primary"
-      type="submit"
-      full-width
-    >
-      ログイン
-    </UiAppButton>
+    <UiAppButton variant="primary" type="submit" full-width> ログイン </UiAppButton>
   </form>
 </template>

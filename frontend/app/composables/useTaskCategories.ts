@@ -9,27 +9,20 @@ import {
 import type { TaskCategoryForm } from "~/schemas/taskCategory";
 
 export const useTaskCategories = () => {
-  const createTaskCategory = async (
-    projectId: string | string[],
-    form: TaskCategoryForm,
-  ) => {
+  const createTaskCategory = async (projectId: string | string[], form: TaskCategoryForm) => {
     return await createTaskCategoryApi(projectId, form);
   };
 
   const fetchTaskCategoryList = (projectId: string | string[]) => {
-    return useAsyncData(
-      `task-categories-${projectId}`,
-      () => fetchTaskCategories(projectId),
-    );
+    return useAsyncData(`task-categories-${projectId}`, () => fetchTaskCategories(projectId));
   };
 
   const fetchTaskCategoryDetail = (
     projectId: string | string[],
     taskCategoryId: string | string[],
   ) => {
-    return useAsyncData(
-      `task-category-${projectId}-${taskCategoryId}`,
-      () => fetchTaskCategory(projectId, taskCategoryId),
+    return useAsyncData(`task-category-${projectId}-${taskCategoryId}`, () =>
+      fetchTaskCategory(projectId, taskCategoryId),
     );
   };
 
