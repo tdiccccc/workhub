@@ -29,7 +29,7 @@ const handleSubmit = async () => {
   try {
     await createProject(payload);
     await navigateTo("/dashboard");
-  } catch (error) {
+  } catch {
     errorMessage.value = "プロジェクトの作成に失敗しました。";
   }
 };
@@ -57,9 +57,9 @@ const handleSubmit = async () => {
           v-model:name="name"
           v-model:amount="amount"
           v-model:description="description"
-          v-model:startedAt="startedAt"
-          v-model:endedAt="endedAt"
-          v-model:isActive="isActive"
+          v-model:started-at="startedAt"
+          v-model:ended-at="endedAt"
+          v-model:is-active="isActive"
           :errors="errors"
         />
 

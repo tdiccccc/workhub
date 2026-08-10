@@ -22,7 +22,7 @@ const handleSubmit = async () => {
   try {
     await authStore.login(payload.email, payload.password);
     await navigateTo("/dashboard");
-  } catch (error) {
+  } catch {
     errorMessage.value = "ログインに失敗しました。";
   }
 };

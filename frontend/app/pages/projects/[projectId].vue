@@ -63,7 +63,7 @@ const handleUpdate = async () => {
     await updateProject(projectId, payload);
     await refresh();
     isEditing.value = false;
-  } catch (error) {
+  } catch {
     errorMessage.value = "プロジェクトの更新に失敗しました。";
   }
 };
@@ -78,7 +78,7 @@ const handleDelete = async () => {
   try {
     await deleteProject(projectId);
     await navigateTo("/dashboard");
-  } catch (error) {
+  } catch {
     errorMessage.value = "プロジェクトの削除に失敗しました。";
   }
 };
@@ -121,7 +121,7 @@ const handleCreateTaskCategory = async () => {
     await createTaskCategory(projectId, payload);
     await refreshNuxtData(`task-categories-${projectId}`);
     resetTaskCategoryForm();
-  } catch (error) {
+  } catch {
     taskCategoryCreateError.value = "タスクカテゴリの作成に失敗しました。";
   } finally {
     taskCategoryCreatePending.value = false;
@@ -160,9 +160,9 @@ const handleCreateTaskCategory = async () => {
           v-model:name="name"
           v-model:amount="amount"
           v-model:description="description"
-          v-model:startedAt="startedAt"
-          v-model:endedAt="endedAt"
-          v-model:isActive="isActive"
+          v-model:started-at="startedAt"
+          v-model:ended-at="endedAt"
+          v-model:is-active="isActive"
           :readonly="!isEditing"
           :errors="errors"
         />
@@ -203,11 +203,11 @@ const handleCreateTaskCategory = async () => {
     </UiAppStatusMessage>
     <UiAppPanel title="タスクカテゴリ作成">
       <form class="space-y-4" @submit.prevent="handleCreateTaskCategory">
-        <TaskCategoryForm 
-          v-model:taskCategoryName="taskCategoryName"
-          v-model:taskCategoryDescription="taskCategoryDescription"
-          v-model:taskCategoryColor="taskCategoryColor"
-          v-model:taskCategorySortOrder="taskCategorySortOrder"
+        <TaskCategoryForm
+          v-model:task-category-name="taskCategoryName"
+          v-model:task-category-description="taskCategoryDescription"
+          v-model:task-category-color="taskCategoryColor"
+          v-model:task-category-sort-order="taskCategorySortOrder"
           :task-category-errors="taskCategoryErrors"
         />
         <UiAppButton

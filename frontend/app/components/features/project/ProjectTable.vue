@@ -33,7 +33,9 @@ const formatDateTime = (dateTime: string | null) => {
         <th class="border-b border-slate-300 px-3 py-2">開始日時</th>
         <th class="border-b border-slate-300 px-3 py-2">終了日時</th>
         <th class="border-b border-slate-300 px-3 py-2">状態</th>
-        <th class="border-b border-slate-300 px-3 py-2"></th>
+        <th class="border-b border-slate-300 px-3 py-2">
+          <span class="sr-only">操作</span>
+        </th>
       </tr>
     </thead>
 

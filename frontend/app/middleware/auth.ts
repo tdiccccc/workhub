@@ -14,7 +14,7 @@ export default defineNuxtRouteMiddleware(async () => {
     // storeにuserがなければログイン画面にリダイレクト
     try {
         await authStore.fetchCurrentUser()
-    } catch (error) {
+    } catch {
         console.log('認証ミドルウェア: 未ログインのためログイン画面へ遷移')
         return navigateTo('/login')
     }

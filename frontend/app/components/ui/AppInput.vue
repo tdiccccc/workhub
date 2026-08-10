@@ -11,6 +11,9 @@ withDefaults(
   }>(),
   {
     type: "text",
+    label: undefined,
+    error: undefined,
+    placeholder: undefined,
   },
 );
 
