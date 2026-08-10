@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TaskCategory } from "~/types/taskCategory"
+import type { TaskCategory } from "~/types/taskCategory";
 
 defineProps<{
   taskCategories: TaskCategory[];
