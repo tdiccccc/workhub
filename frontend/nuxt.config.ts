@@ -10,4 +10,15 @@ export default defineNuxtConfig({
       proxy: "http://localhost:8200/api/**",
     },
   },
+  app: {
+    head: {
+      link: [
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/work-hub-icon.png",
+        },
+      ],
+    },
+  },
 });
