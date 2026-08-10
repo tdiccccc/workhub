@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import ProjectForm from "~/components/features/project/ProjectForm.vue";
 import ProjectDetailActions from "~/components/features/project/ProjectDetailActions.vue";
+import TaskCategoryList from "~/components/features/taskCategory/TaskCategoryList.vue";
+import TaskCategoryForm from "~/components/features/taskCategory/TaskCategoryForm.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -80,6 +82,51 @@ const handleDelete = async () => {
     errorMessage.value = "プロジェクトの削除に失敗しました。";
   }
 };
+
+const { fetchTaskCategoryList } = useTaskCategories();
+const {
+  data: taskCategoryData,
+  pending: taskCategoryPending,
+  error: taskCategoryError,
+} = await fetchTaskCategoryList(projectId);
+
+const taskCategories = computed(() => taskCategoryData.value?.data ?? []);
+
+const {
+  name: taskCategoryName,
+  description: taskCategoryDescription,
+  color: taskCategoryColor,
+  sortOrder: taskCategorySortOrder,
+  errors: taskCategoryErrors,
+  validate: validateTaskCategory,
+  resetForm: resetTaskCategoryForm,
+} = useTaskCategoryForm();
+
+const { createTaskCategory } = useTaskCategories();
+
+const taskCategoryCreatePending = ref(false);
+const taskCategoryCreateError = ref("");
+
+const handleCreateTaskCategory = async () => {
+  const payload = validateTaskCategory();
+
+  if (!payload) {
+    return;
+  }
+
+  try {
+    taskCategoryCreatePending.value = true;
+    taskCategoryCreateError.value = "";
+
+    await createTaskCategory(projectId, payload);
+    await refreshNuxtData(`task-categories-${projectId}`);
+    resetTaskCategoryForm();
+  } catch (error) {
+    taskCategoryCreateError.value = "タスクカテゴリの作成に失敗しました。";
+  } finally {
+    taskCategoryCreatePending.value = false;
+  }
+};
 </script>
 
 <template>
@@ -127,6 +174,49 @@ const handleDelete = async () => {
           @delete="handleDelete"
           @cancel="cancelEditing"
         />
+      </form>
+    </UiAppPanel>
+
+    <UiAppPanel title="タスクカテゴリ">
+      <UiAppStatusMessage v-if="taskCategoryPending">
+        読み込み中...
+      </UiAppStatusMessage>
+
+      <UiAppStatusMessage v-else-if="taskCategoryError" type="error">
+        タスクカテゴリの取得に失敗しました。
+      </UiAppStatusMessage>
+
+      <UiAppEmptyState
+        v-else-if="taskCategories.length === 0"
+        title="タスクカテゴリはまだありません"
+        description="このProjectで使う作業分類を追加できます。"
+      />
+
+      <TaskCategoryList
+        v-else
+        :task-categories="taskCategories"
+      />
+    </UiAppPanel>
+
+    <UiAppStatusMessage v-if="taskCategoryCreateError" type="error">
+      {{ taskCategoryCreateError }}
+    </UiAppStatusMessage>
+    <UiAppPanel title="タスクカテゴリ作成">
+      <form class="space-y-4" @submit.prevent="handleCreateTaskCategory">
+        <TaskCategoryForm 
+          v-model:taskCategoryName="taskCategoryName"
+          v-model:taskCategoryDescription="taskCategoryDescription"
+          v-model:taskCategoryColor="taskCategoryColor"
+          v-model:taskCategorySortOrder="taskCategorySortOrder"
+          :task-category-errors="taskCategoryErrors"
+        />
+        <UiAppButton
+          type="submit"
+          variant="primary"
+          :disabled="taskCategoryCreatePending"
+        >
+          作成
+        </UiAppButton>
       </form>
     </UiAppPanel>
   </div>

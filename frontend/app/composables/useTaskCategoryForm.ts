@@ -40,6 +40,14 @@ export const useTaskCategoryForm = () => {
     sortOrder.value = String(taskCategory.sortOrder);
   };
 
+  const resetForm = () => {
+    name.value = "";
+    description.value = "";
+    color.value = "";
+    sortOrder.value = "";
+    clearErrors();
+  };
+
   const toPayload = () => {
     return {
       name: name.value,
@@ -57,6 +65,7 @@ export const useTaskCategoryForm = () => {
     errors,
     validate,
     setForm,
+    resetForm,
     toPayload,
   };
 };
