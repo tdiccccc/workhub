@@ -55,4 +55,4 @@ export const useTaskCategories = () => {
     deleteTaskCategory,
     updateTaskCategory,
   };
-}
+};
