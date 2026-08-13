@@ -20,6 +20,7 @@ const emit = defineEmits<{
         class="inline-block h-3 w-3 rounded-full"
         :style="{ backgroundColor: taskCategory.color }"
       />
+      <span class="text-xs text-slate-500"> #{{ taskCategory.sortOrder }} </span>
       <template v-if="editingTaskCategoryId === taskCategory.id">
         <span>{{ taskCategory.name }} を編集中</span>
 
