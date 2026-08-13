@@ -296,17 +296,20 @@ Java側のフィールド名は `private boolean active;` を基本とし、`isA
   "data": [
     {
       "id": 1,
-      "project_id": 1,
+      "projectId": 1,
       "name": "要件定義",
       "description": "要件定義フェーズの作業",
       "color": "#FF5733",
-      "sort_order": 1,
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-01-01T00:00:00Z"
+      "sortOrder": 1,
+      "createdAt": "2024-01-01T00:00:00",
+      "updatedAt": "2024-01-01T00:00:00",
+      "deletedAt": null
     }
   ]
 }
 ```
+
+`sortOrder` 昇順で返却する。
 
 ### POST /api/projects/{projectId}/task-categories
 
@@ -319,11 +322,29 @@ Java側のフィールド名は `private boolean active;` を基本とし、`isA
   "name": "要件定義",
   "description": "要件定義フェーズの作業",
   "color": "#FF5733",
-  "sort_order": 1
+  "sortOrder": 1
 }
 ```
 
 **レスポンス (201)**
+
+```json
+{
+  "status": 201,
+  "message": "TaskCategory created",
+  "data": {
+    "id": 1,
+    "projectId": 1,
+    "name": "要件定義",
+    "description": "要件定義フェーズの作業",
+    "color": "#FF5733",
+    "sortOrder": 1,
+    "createdAt": "2024-01-01T00:00:00",
+    "updatedAt": "2024-01-01T00:00:00",
+    "deletedAt": null
+  }
+}
+```
 
 ### PUT /api/projects/{projectId}/task-categories/{id}
 
@@ -334,17 +355,45 @@ Java側のフィールド名は `private boolean active;` を基本とし、`isA
 ```json
 {
   "name": "要件定義（更新）",
-  "color": "#00FF00"
+  "description": "要件定義フェーズの作業を更新",
+  "color": "#00FF00",
+  "sortOrder": 2
 }
 ```
 
 **レスポンス (200)**
 
+```json
+{
+  "status": 200,
+  "message": "TaskCategory updated",
+  "data": {
+    "id": 1,
+    "projectId": 1,
+    "name": "要件定義（更新）",
+    "description": "要件定義フェーズの作業を更新",
+    "color": "#00FF00",
+    "sortOrder": 2,
+    "createdAt": "2024-01-01T00:00:00",
+    "updatedAt": "2024-01-02T00:00:00",
+    "deletedAt": null
+  }
+}
+```
+
 ### DELETE /api/projects/{projectId}/task-categories/{id}
 
 カテゴリ削除
 
-**レスポンス (204)**
+**レスポンス (200)**
+
+```json
+{
+  "status": 200,
+  "message": "TaskCategory deleted",
+  "data": null
+}
+```
 
 ---
 
