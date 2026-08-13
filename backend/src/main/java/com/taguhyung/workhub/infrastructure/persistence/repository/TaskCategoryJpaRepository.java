@@ -9,7 +9,7 @@ public interface TaskCategoryJpaRepository
         extends JpaRepository<TaskCategoryJpaEntity, Long> {
     List<TaskCategoryJpaEntity> findByDeletedAtIsNull();
 
-    List<TaskCategoryJpaEntity> findByProjectIdAndDeletedAtIsNull(Long projectId);
+    List<TaskCategoryJpaEntity> findByProjectIdAndDeletedAtIsNullOrderBySortOrderAsc(Long projectId);
 
     Optional<TaskCategoryJpaEntity> findByIdAndDeletedAtIsNull(Long id);
 }

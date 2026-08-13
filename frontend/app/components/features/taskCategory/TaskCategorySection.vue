@@ -15,9 +15,7 @@ const {
   error: taskCategoryError,
 } = await fetchTaskCategoryList(props.projectId);
 
-const taskCategories = computed(() => {
-  return [...(taskCategoryData.value?.data ?? [])].sort((a, b) => a.sortOrder - b.sortOrder);
-});
+const taskCategories = computed(() => taskCategoryData.value?.data ?? []);
 
 const {
   name: taskCategoryName,

@@ -32,7 +32,7 @@ public class TaskCategoryRepositoryImpl implements TaskCategoryRepository {
 
     @Override
     public List<TaskCategory> findByProjectId(Long projectId) {
-        return taskCategoryJpaRepository.findByProjectIdAndDeletedAtIsNull(projectId)
+        return taskCategoryJpaRepository.findByProjectIdAndDeletedAtIsNullOrderBySortOrderAsc(projectId)
                 .stream()
                 .map(mapper::toDomain)
                 .toList();
