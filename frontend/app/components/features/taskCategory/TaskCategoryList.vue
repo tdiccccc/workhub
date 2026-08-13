@@ -3,37 +3,47 @@ import type { TaskCategory } from "~/types/taskCategory";
 
 defineProps<{
   taskCategories: TaskCategory[];
-  editingTaskCategoryId: number | null;
 }>();
 
 const emit = defineEmits<{
   edit: [id: number];
-  cancelEdit: [];
   delete: [id: number];
 }>();
 </script>
 
 <template>
-  <ul class="space-y-2">
-    <li v-for="taskCategory in taskCategories" :key="taskCategory.id">
-      <span
-        class="inline-block h-3 w-3 rounded-full"
-        :style="{ backgroundColor: taskCategory.color }"
-      />
-      <span class="text-xs text-slate-500"> #{{ taskCategory.sortOrder }} </span>
-      <template v-if="editingTaskCategoryId === taskCategory.id">
-        <span>{{ taskCategory.name }} を編集中</span>
+  <ul class="divide-y divide-slate-200">
+    <li
+      v-for="taskCategory in taskCategories"
+      :key="taskCategory.id"
+      class="flex items-center justify-between gap-4 py-3"
+    >
+      <div class="flex min-w-0 items-center gap-3">
+        <span
+          class="h-3 w-3 shrink-0 rounded-full"
+          :style="{ backgroundColor: taskCategory.color }"
+        />
 
-        <UiAppButton @click="emit('cancelEdit')"> キャンセル </UiAppButton>
-      </template>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <p class="truncate text-sm font-medium text-slate-900">
+              {{ taskCategory.name }}
+            </p>
 
-      <template v-else>
-        {{ taskCategory.name }}
+            <span class="text-xs text-slate-500"> #{{ taskCategory.sortOrder }} </span>
+          </div>
 
+          <p class="mt-1 truncate text-xs text-slate-500">
+            {{ taskCategory.description || "説明なし" }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex shrink-0 items-center gap-2">
         <UiAppButton @click="emit('edit', taskCategory.id)"> 編集 </UiAppButton>
 
         <UiAppButton variant="danger" @click="emit('delete', taskCategory.id)"> 削除 </UiAppButton>
-      </template>
+      </div>
     </li>
   </ul>
 </template>

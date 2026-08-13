@@ -146,9 +146,7 @@ const handleUpdateTaskCategory = async () => {
     <TaskCategoryList
       v-else
       :task-categories="taskCategories"
-      :editing-task-category-id="editingTaskCategoryId"
       @edit="startEditTaskCategory"
-      @cancel-edit="cancelEditTaskCategory"
       @delete="handleDeleteTaskCategory"
     />
 
